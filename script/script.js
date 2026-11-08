@@ -1,14 +1,9 @@
 /* ====================================================================
    PROYECTO: CHIFA FU LAI - CARTA DIGITAL & SISTEMA DE PEDIDOS
    ARCHIVO: script.js (Lógica JavaScript ES6+ - SPA)
-   VERSIÓN: 2.0.0 (Edición Chifa Fu Lai 100% Completa)
-   AUTOR: Chifa Fu Lai - Equipo de Desarrollo Web
-   UBICACIÓN: Av. El Sol 456, Centro Histórico, Cusco, Perú
-   DESCRIPCIÓN: Controlador principal Single Page Application (SPA).
-                Incluye gestión de carrito bimodal (sala/llevar), recargo
-                de envases, motor de búsqueda en tiempo real, validación de
-                cupones, ruleta interactiva de recomendaciones, calculadora
-                de banquetes, control de horario y generador de pedidos por WhatsApp.
+   VERSIÓN: 2.1.0 (Edición Chifa Fu Lai - Recomendaciones & Imágenes)
+   AUTOR: LUIS MIGUEL VERDE GUILLEN - Equipo de Desarrollo Web
+   UBICACIÓN: Inglaterra Mz. O Lt. 8, Cusco, Perú
    ==================================================================== */
 
 /* ========================================== */
@@ -17,152 +12,159 @@
 const WHATSAPP_NUMBER = "51900390458";
 
 const CATEGORIES = [
-  "Todos", 
-  "Combos", 
-  "Chaufa Verduras", 
-  "Chaufa Especial", 
-  "Saltados & Milanesas", 
-  "Chaufas", 
-  "Aeropuertos", 
-  "Tallarines", 
-  "Combinados", 
-  "Bebidas", 
-  "Extras"
+  "Recomendaciones",
+  "Sopas",
+  "Chaufas",
+  "Aeropuertos",
+  "Tortillas",
+  "Platos Salados",
+  "Platos Agridulces",
+  "Platos a la Plancha",
+  "Criollos con Chaufa",
+  "Combos Tríos",
+  "Bebidas"
 ];
 
 const SECTION_TITLES = {
-  "Combos": "🔥 Combos Especiales Fu Lai (S/. 14.00 - S/. 16.00)",
-  "Chaufa Verduras": "🥬 Combinados Chaufa de Verduras (S/. 18.00)",
-  "Chaufa Especial": "⭐ Combinados Chaufa Especial (S/. 20.00)",
-  "Saltados & Milanesas": "🍳 Saltados, Bisteck & Milanesas (S/. 14.00 - S/. 18.00)",
-  "Chaufas": "🍚 Chaufas Tradicionales al Wok (S/. 8.00 - S/. 15.00)",
-  "Aeropuertos": "✈️ Aeropuertos al Wok (S/. 12.00 - S/. 15.00)",
-  "Tallarines": "🍜 Tallarines Saltados (S/. 13.00 - S/. 16.00)",
-  "Combinados": "🥢 Combinados Simples (S/. 13.50 - S/. 18.00)",
-  "Bebidas": "🥤 Bebidas & Refrescos",
-  "Extras": "➕ Extras & Porciones"
+  "Recomendaciones": "⭐ Platos Recomendados Fu Lai",
+  "Sopas": "🍲 Sopas Tradicionales (S/. 11.00 - S/. 16.00)",
+  "Chaufas": "🍚 Chaufas al Wok (S/. 11.00 - S/. 20.00)",
+  "Aeropuertos": "✈️ Aeropuertos al Wok (S/. 12.00 - S/. 20.00)",
+  "Tortillas": "🍳 Tortillas con Chaufa (S/. 14.00 - S/. 20.00)",
+  "Platos Salados": "🥢 Platos Salados (S/. 14.00 - S/. 21.00)",
+  "Platos Agridulces": "🍍 Platos Agridulces (S/. 14.00 - S/. 20.00)",
+  "Platos a la Plancha": "🔥 Platos a la Plancha (S/. 18.00 - S/. 22.00)",
+  "Criollos con Chaufa": "🥩 Criollos con Arroz Chaufa (S/. 12.00 - S/. 16.00)",
+  "Combos Tríos": "🔥 Combos Tríos Fu Lai (S/. 20.00)",
+  "Bebidas": "🥤 Bebidas Frías y Calientes"
 };
 
 const PRODUCTS = [
-  /* COMBOS */
-  { id: "combo-a", name: "Combo A: Chaufa c/ Lomo Saltado + Tortilla de Pollo", category: "Combos", price: 16.00, badge: "El Más Pedido 🔥", desc: "Chaufa especial con Lomo Saltado jugoso y Tortilla de Pollo.", image: "img/combos/combo-a.jpg" },
-  { id: "combo-b", name: "Combo B: Chaufa c/ Tallarín Saltado de Pollo + Tortilla", category: "Combos", price: 16.00, desc: "Chaufa, Tallarín saltado de pollo y Tortilla de Pollo.", image: "img/combos/combo-b.jpg" },
-  { id: "combo-c", name: "Combo C: Chaufa + Milanesa de pollo + huevo + Plátano", category: "Combos", price: 16.00, badge: "Favorito Fu Lai", desc: "Chaufa abundante con milanesa, huevo frito y plátano frito.", image: "img/combos/combo-c.jpg" },
-  { id: "combo-d", name: "Combo D: Chaufa + Papas fritas + Tortilla de Pollo", category: "Combos", price: 14.00, desc: "Chaufa con papas fritas doradas y tortilla de pollo.", image: "img/combos/combo-d.jpg" },
-  { id: "combo-e", name: "Combo E: Chaufa con Pollo + Bisteck Montado", category: "Combos", price: 16.00, desc: "Chaufa con pollo coronado con bisteck a la plancha.", image: "img/combos/combo-e.jpg" },
-  { id: "combo-f", name: "Combo F: Chaufa + papas fritas + Tortilla de verduras y pollo", category: "Combos", price: 15.00, desc: "Chaufa, papitas fritas y tortilla salteada con verduras y pollo.", image: "img/combos/combo-f.jpg" },
-  { id: "combo-g", name: "Combo G: Chaufa + filete de pollo montado + encebollado", category: "Combos", price: 16.00, desc: "Chaufa acompañado de filete de pollo montado y encebollado.", image: "img/combos/combo-g.jpg" },
-  { id: "combo-h", name: "Combo H: Chaufa + Milanesa de carne + huevo + Plátano", category: "Combos", price: 16.00, desc: "Chaufa con milanesa de carne, huevo frito y plátano frito.", image: "img/combos/combo-h.jpg" },
-  { id: "combo-i", name: "Combo I: Chaufa + papas fritas + bisteck a lo pobre", category: "Combos", price: 16.00, badge: "Taipá 🔥", desc: "Chaufa con papas fritas, bisteck, 2 plátanos y 1 salchicha.", image: "img/combos/combo-i.jpg" },
-  
-  /* CHAUFA VERDURAS */
-  { id: "cv-1", name: "Chaufa de Verduras con Lomo Saltado", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa de verduras acompañado con Lomo Saltado." },
-  { id: "cv-2", name: "Chaufa de Verduras con Saltado de Pollo", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa salteado con verduras y tiras de pollo." },
-  { id: "cv-3", name: "Chaufa de Verduras con Tortilla de Pollo", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa de verduras acompañado con tortilla de pollo." },
-  { id: "cv-4", name: "Chaufa de Verduras con Tortilla de Carne", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa de verduras con tortilla de carne." },
-  { id: "cv-5", name: "Chaufa de Verduras con Bisteck Montado", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa de verduras con bisteck a la plancha montado." },
-  { id: "cv-6", name: "Chaufa de Verduras con Milanesa de Pollo", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa de verduras con milanesa de pollo crujiente." },
-  { id: "cv-7", name: "Chaufa de Verduras con Filete de Pollo Montado", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa de verduras con filete de pollo montado." },
-  { id: "cv-8", name: "Chaufa de Verduras con Pollo a la Plancha", category: "Chaufa Verduras", price: 18.00, desc: "Chaufa de verduras con pechuga de pollo a la plancha." },
+  /* RECOMENDACIONES (TARJETAS CON IMAGEN) */
+  { id: "rec-a", name: "Chaufa c/ Lomo Saltado + Tortilla de Pollo", category: "Recomendaciones", price: 16.00, desc: "Chaufa especial servido con jugoso Lomo Saltado y Tortilla de Pollo.", image: "img/combos/combo-a.svg" },
+  { id: "rec-b", name: "Chaufa c/ Tallarín Saltado de Pollo + Tortilla", category: "Recomendaciones", price: 16.00, desc: "Arroz chaufa, tallarín saltado de pollo al wok y tortilla de pollo.", image: "img/combos/combo-b.svg" },
+  { id: "rec-c", name: "Chaufa + Milanesa de Pollo + Huevo + Plátano", category: "Recomendaciones", price: 16.00, desc: "Chaufa abundante con milanesa crujiente, huevo frito y plátano.", image: "img/combos/combo-c.svg" },
+  { id: "rec-d", name: "Chaufa + Papas Fritas + Tortilla de Pollo", category: "Recomendaciones", price: 14.00, desc: "Chaufa con papas fritas doraditas y tortilla de pollo jugosa.", image: "img/combos/combo-d.svg" },
+  { id: "rec-e", name: "Chaufa con Pollo + Bisteck Montado", category: "Recomendaciones", price: 15.00, desc: "Chaufa salteado con pollo y bisteck a la plancha montado.", image: "img/combos/combo-e.svg" },
+  { id: "rec-f", name: "Chaufa + Papas Fritas + Tortilla de Verduras y Pollo", category: "Recomendaciones", price: 15.00, desc: "Chaufa, papitas fritas crujientes y tortilla con verduras y pollo.", image: "img/combos/combo-f.svg" },
+  { id: "rec-g", name: "Chaufa + Filete de Pollo Montado + Encebollado", category: "Recomendaciones", price: 16.00, desc: "Chaufa acompañado de filete de pollo montado con salteado de cebollas.", image: "img/combos/combo-g.svg" },
+  { id: "rec-h", name: "Chaufa + Milanesa de Carne + Huevo + Plátano", category: "Recomendaciones", price: 16.00, desc: "Chaufa con milanesa de carne dorada, huevo frito y plátano.", image: "img/combos/combo-h.svg" },
+  { id: "rec-i", name: "Chaufa + Papas Fritas + Bisteck a lo Pobre", category: "Recomendaciones", price: 16.00, desc: "Chaufa con papas fritas, bisteck, plátanos fritos y huevo montado.", image: "img/combos/combo-i.svg" },
 
-  /* CHAUFA ESPECIAL */
-  { id: "ce-1", name: "Chaufa Especial con Lomo Saltado", category: "Chaufa Especial", price: 20.00, badge: "Premium ⭐", desc: "Chaufa especial gourmet con Lomo Saltado fino." },
-  { id: "ce-2", name: "Chaufa Especial con Saltado de Pollo", category: "Chaufa Especial", price: 20.00, desc: "Chaufa especial salteado con tiras de pollo jugoso." },
-  { id: "ce-3", name: "Chaufa Especial con Tortilla de Pollo", category: "Chaufa Especial", price: 20.00, desc: "Chaufa especial acompañado de tortilla de pollo." },
-  { id: "ce-4", name: "Chaufa Especial con Tortilla de Carne", category: "Chaufa Especial", price: 20.00, desc: "Chaufa especial acompañado de tortilla de carne." },
-  { id: "ce-5", name: "Chaufa Especial con Bisteck Montado", category: "Chaufa Especial", price: 20.00, desc: "Chaufa especial servido con bisteck montado." },
-  { id: "ce-6", name: "Chaufa Especial con Milanesa de Pollo", category: "Chaufa Especial", price: 20.00, desc: "Chaufa especial servido con milanesa de pollo." },
-  { id: "ce-7", name: "Chaufa Especial con Filete de Pollo Montado", category: "Chaufa Especial", price: 20.00, desc: "Chaufa especial servido con filete de pollo montado." },
-  { id: "ce-8", name: "Chaufa Especial con Pollo a la Plancha", category: "Chaufa Especial", price: 20.00, desc: "Chaufa especial servido con pechuga a la plancha." },
-
-  /* SALTADOS - BISTECK - MILANESAS */
-  { id: "sm-1", name: "Chaufa con Milanesa de Pollo", category: "Saltados & Milanesas", price: 15.00, desc: "Milanesa de pollo dorada acompañada de arroz chaufa." },
-  { id: "sm-2", name: "Chaufa con Milanesa de Pollo + Huevo", category: "Saltados & Milanesas", price: 16.00, desc: "Milanesa de pollo con huevo frito y chaufa." },
-  { id: "sm-3", name: "Chaufa con Milanesa de Carne", category: "Saltados & Milanesas", price: 16.00, desc: "Milanesa de carne dorada con chaufa." },
-  { id: "sm-4", name: "Chaufa con Milanesa de Pollo a lo Pobre", category: "Saltados & Milanesas", price: 17.00, desc: "Milanesa de pollo, papas fritas, huevo y plátano con chaufa." },
-  { id: "sm-5", name: "Chaufa con Milanesa de Carne a lo Pobre", category: "Saltados & Milanesas", price: 17.00, desc: "Milanesa de carne, papas fritas, huevo y plátano con chaufa." },
-  { id: "sm-6", name: "Chaufa con Bisteck a lo Pobre", category: "Saltados & Milanesas", price: 16.00, desc: "Bisteck a la plancha con huevo, plátano y arroz chaufa." },
-  { id: "sm-7", name: "Chaufa con Filete a lo Pobre", category: "Saltados & Milanesas", price: 16.00, desc: "Filete de pollo con huevo, plátano y arroz chaufa." },
-  { id: "sm-8", name: "Chaufa con Bisteck Montado", category: "Saltados & Milanesas", price: 14.50, desc: "Bisteck a la plancha sobre chaufa caliente." },
-  { id: "sm-9", name: "Bisteck Montado Encebollado", category: "Saltados & Milanesas", price: 15.00, desc: "Bisteck jugoso con salteado de cebollas y tomates." },
-  { id: "sm-10", name: "Chaufa con Filete de Pollo Montado", category: "Saltados & Milanesas", price: 14.50, desc: "Filete de pollo a la plancha con chaufa." },
-  { id: "sm-11", name: "Chaufa con Pollo a la Plancha", category: "Saltados & Milanesas", price: 14.00, desc: "Pollo a la plancha sazonado al wok con chaufa." },
-  { id: "sm-12", name: "Chaufa con Chicharrón de Pollo", category: "Saltados & Milanesas", price: 18.00, badge: "Recomendado 💡", desc: "Trozos crocantes de chicharrón de pollo con chaufa." },
-  { id: "sm-13", name: "Lomo Saltado a lo Pobre", category: "Saltados & Milanesas", price: 16.00, desc: "Lomo saltado tradicional servido con huevo y plátano frito." },
-  { id: "sm-14", name: "Saltado de Pollo a lo Pobre", category: "Saltados & Milanesas", price: 16.00, desc: "Pollo saltado al wok servido con huevo y plátano frito." },
-  { id: "sm-15", name: "Saltado de Verduras con Carne", category: "Saltados & Milanesas", price: 15.00, desc: "Verduras chinas salteadas con tiras de carne." },
-  { id: "sm-16", name: "Saltado de Verduras con Pollo", category: "Saltados & Milanesas", price: 15.00, desc: "Verduras salteadas al wok con tiras de pollo." },
-  { id: "sm-17", name: "Saltado de Verduras con Pollo y Champiñones", category: "Saltados & Milanesas", price: 16.00, desc: "Verduras, pollo y champiñones frescos al wok." },
-  { id: "sm-18", name: "Saltado de Verduras con Carne y Pollo", category: "Saltados & Milanesas", price: 16.00, desc: "Mezcla de carnes salteadas con verduras de estación." },
-  { id: "sm-19", name: "Pollo con Verduras (Guiso)", category: "Saltados & Milanesas", price: 15.00, desc: "Guiso estilo chifa de pollo con verduras al wok." },
-  { id: "sm-20", name: "Carne con Verduras (Guiso)", category: "Saltados & Milanesas", price: 15.00, desc: "Guiso estilo chifa de carne suave con verduras." },
-  { id: "sm-21", name: "Champiñones con Verduras (Guiso)", category: "Saltados & Milanesas", price: 15.00, desc: "Guiso vegetariano de champiñones salteados." },
-  { id: "sm-22", name: "Taypa 'Fu Lai' (Guiso Especial)", category: "Saltados & Milanesas", price: 17.00, badge: "Especial Fu Lai ⭐", desc: "Guiso estrella con mixtura de carnes y verduras al wok." },
+  /* SOPAS */
+  { id: "sop-1", name: "Sopa de Pollo", category: "Sopas", price: 11.00, desc: "Sopa reconfortante con trozos de pollo y fideos." },
+  { id: "sop-2", name: "Sopa Wantán", category: "Sopas", price: 11.00, desc: "Caldo de la casa con wantanes rellenos y verduras." },
+  { id: "sop-3", name: "Sopa de Pollo con Kión", category: "Sopas", price: 11.00, desc: "Sopa aromática de pollo con toque de kión fresco." },
+  { id: "sop-4", name: "Sopa de Pollo y Verduras", category: "Sopas", price: 12.00, desc: "Sopa nutritiva con tiras de pollo y verduras chinas." },
+  { id: "sop-5", name: "Sopa Especial (Taypa)", category: "Sopas", price: 16.00, badge: "Especial ⭐", desc: "Sopa sustanciosa con pollo, carne, langostinos, huevos de codorniz y wantán." },
 
   /* CHAUFAS */
-  { id: "ch-1", name: "Chaufa con Carne", category: "Chaufas", price: 10.00, desc: "Chaufa clásico salteado con carne de res." },
-  { id: "ch-2", name: "Chaufa con Pollo", category: "Chaufas", price: 10.00, desc: "Chaufa tradicional salteado con tiras de pollo." },
-  { id: "ch-3", name: "Chaufa con Salchicha y Papas Fritas", category: "Chaufas", price: 8.00, badge: "Económico 💡", desc: "Chaufa popular con salchichas y papitas fritas." },
-  { id: "ch-4", name: "Chaufa con Pollo y Carne", category: "Chaufas", price: 13.00, desc: "Chaufa combinado de pollo y carne de res." },
-  { id: "ch-5", name: "Chaufa con Verduras", category: "Chaufas", price: 12.00, desc: "Chaufa ligero preparado con verduras frescas al wok." },
-  { id: "ch-6", name: "Chaufa Especial (Pollo/Carne/Champiñones)", category: "Chaufas", price: 15.00, badge: "Taipá", desc: "Mezcla de pollo, carne y champiñones al wok." },
-  { id: "ch-7", name: "Chaufa con Champiñones", category: "Chaufas", price: 12.00, desc: "Chaufa especial preparado con champiñones fritos." },
-  { id: "ch-8", name: "Chaufa con Champiñones, Verduras y Carne", category: "Chaufas", price: 15.00, desc: "Chaufa completo de champiñones, verduras y carne." },
-  { id: "ch-9", name: "Chaufa con Verduras, Champiñones y Pollo", category: "Chaufas", price: 15.00, desc: "Chaufa abundante de verduras, champiñones y pollo." },
-  { id: "ch-10", name: "Chaufa con Verduras y Champiñones", category: "Chaufas", price: 13.00, desc: "Chaufa salteado con mezcla de verduras y champiñones." },
-  { id: "ch-11", name: "Chaufa con Pollo y Champiñones", category: "Chaufas", price: 13.00, desc: "Chaufa con tiras de pollo y champiñones al wok." },
-  { id: "ch-12", name: "Chaufa con Carne y Champiñones", category: "Chaufas", price: 13.00, desc: "Chaufa salteado con carne y champiñones frescos." },
+  { id: "ch-1", name: "Chaufa de Pollo", category: "Chaufas", price: 11.00, desc: "Arroz salteado con pollo al wok." },
+  { id: "ch-2", name: "Chaufa de Carne", category: "Chaufas", price: 12.00, desc: "Arroz salteado con carne de res al wok." },
+  { id: "ch-3", name: "Chaufa de Chancho", category: "Chaufas", price: 13.00, desc: "Arroz salteado con chancho asado al wok." },
+  { id: "ch-4", name: "Chaufa de Verduras 'Sin Pollo'", category: "Chaufas", price: 11.00, desc: "Arroz salteado con verduras frescas al wok." },
+  { id: "ch-5", name: "Chaufa de Champiñones", category: "Chaufas", price: 14.00, desc: "Arroz salteado con champiñones al wok." },
+  { id: "ch-6", name: "Chaufa de Langostinos", category: "Chaufas", price: 16.00, desc: "Arroz salteado con langostinos frescos al wok." },
+  { id: "ch-7", name: "Chaufa Mixta (Pollo y Carne)", category: "Chaufas", price: 15.00, desc: "Arroz salteado con pollo y carne al wok." },
+  { id: "ch-8", name: "Chaufa Mixta (Pollo y Chancho)", category: "Chaufas", price: 15.00, desc: "Arroz salteado con pollo y chancho al wok." },
+  { id: "ch-9", name: "Chaufa Mixta (Pollo y Verduras)", category: "Chaufas", price: 15.00, desc: "Arroz salteado con pollo y verduras al wok." },
+  { id: "ch-10", name: "Chaufa Especial 'Taypa'", category: "Chaufas", price: 20.00, badge: "Taipá ⭐", desc: "Arroz salteado con pollo, carne, chancho, langostinos y champiñones al wok." },
 
   /* AEROPUERTOS */
-  { id: "aero-1", name: "Aeropuerto con Champiñones", category: "Aeropuertos", price: 12.00, desc: "Chaufa + Tallarín salteados con champiñones." },
-  { id: "aero-2", name: "Aeropuerto con Pollo", category: "Aeropuertos", price: 12.00, desc: "Chaufa + Tallarín salteados con tiras de pollo." },
-  { id: "aero-3", name: "Aeropuerto con Carne", category: "Aeropuertos", price: 12.00, desc: "Chaufa + Tallarín salteados con carne de res." },
-  { id: "aero-4", name: "Aeropuerto Especial (Pollo/Carne/Champiñones)", category: "Aeropuertos", price: 15.00, badge: "Taipá ⭐", desc: "Chaufa + Tallarín + pollo, carne y champiñones." },
+  { id: "aero-1", name: "Aeropuerto de Pollo", category: "Aeropuertos", price: 12.00, desc: "Arroz con tallarín y frejol chino salteado con pollo al wok." },
+  { id: "aero-2", name: "Aeropuerto de Carne", category: "Aeropuertos", price: 13.00, desc: "Arroz con tallarín y frejol chino salteado con carne al wok." },
+  { id: "aero-3", name: "Aeropuerto de Chancho", category: "Aeropuertos", price: 14.00, desc: "Arroz con tallarín y frejol chino salteado con chancho al wok." },
+  { id: "aero-4", name: "Aeropuerto de Verduras 'Sin Pollo'", category: "Aeropuertos", price: 12.00, desc: "Arroz con tallarín y frejol chino salteado con verduras al wok." },
+  { id: "aero-5", name: "Aeropuerto de Langostinos", category: "Aeropuertos", price: 17.00, desc: "Arroz con tallarín y frejol chino salteado con langostinos al wok." },
+  { id: "aero-6", name: "Aeropuerto Mixto (Pollo y Carne)", category: "Aeropuertos", price: 16.00, desc: "Arroz con tallarín y frejol chino salteado con pollo y carne al wok." },
+  { id: "aero-7", name: "Aeropuerto Mixto (Pollo y Chancho)", category: "Aeropuertos", price: 16.00, desc: "Arroz con tallarín y frejol chino salteado con pollo y chancho al wok." },
+  { id: "aero-8", name: "Aeropuerto Mixto (Pollo y Verduras)", category: "Aeropuertos", price: 16.00, desc: "Arroz con tallarín y frejol chino salteado con pollo y verduras al wok." },
+  { id: "aero-9", name: "Aeropuerto Especial 'Taypa'", category: "Aeropuertos", price: 20.00, badge: "Taipá ⭐", desc: "Arroz con tallarín y frejol chino con pollo, carne, chancho, langostinos y champiñones al wok." },
 
-  /* TALLARINES */
-  { id: "tal-1", name: "Tallarín Saltado con Carne", category: "Tallarines", price: 13.00, desc: "Tallarines salteados con tiras de carne y verduras." },
-  { id: "tal-2", name: "Tallarín Saltado con Pollo", category: "Tallarines", price: 13.00, desc: "Tallarines salteados con pollo jugoso y verduras." },
-  { id: "tal-3", name: "Tallarín Saltado Especial", category: "Tallarines", price: 15.00, desc: "Tallarines salteados con mixtura de carnes y verduras." },
-  { id: "tal-4", name: "Tallarín Saltado con Verduras y Champiñones", category: "Tallarines", price: 14.00, desc: "Tallarines salteados con selección de verduras y champiñones." },
-  { id: "tal-5", name: "Tallarín Saltado con Champiñones", category: "Tallarines", price: 13.00, desc: "Tallarines fritos con champiñones al wok." },
-  { id: "tal-6", name: "Tallarín Saltado con Champiñones y Pollo", category: "Tallarines", price: 14.00, desc: "Tallarines con pechuga de pollo y champiñones." },
-  { id: "tal-7", name: "Tallarín Saltado con Pollo, Verduras y Champiñones", category: "Tallarines", price: 15.00, desc: "Tallarín completo con pollo, champiñones y verduras." },
-  { id: "tal-8", name: "Tallarín Saltado con Pollo y Verduras", category: "Tallarines", price: 14.00, desc: "Tallarines tradicionales de pollo y verduras." },
-  { id: "tal-9", name: "Tallarín Saltado con Carne y Verduras", category: "Tallarines", price: 14.00, desc: "Tallarines al wok con carne y verduras de estación." },
-  { id: "tal-10", name: "Tallarín Saltado con Champiñones y Carne", category: "Tallarines", price: 14.00, desc: "Tallarines salteados con champiñones y trozos de carne." },
-  { id: "tal-11", name: "Tallarín Saltado 'Fu Lai'", category: "Tallarines", price: 16.00, badge: "Especial ⭐", desc: "Tallarín especial con carnes mixtas y sazón de la casa." },
+  /* TORTILLAS */
+  { id: "tort-1", name: "Chaufa con Tortilla de Pollo", category: "Tortillas", price: 14.00, desc: "Arroz salteado cubierto con jugosa tortilla de pollo." },
+  { id: "tort-2", name: "Chaufa con Tortilla de Carne", category: "Tortillas", price: 14.00, desc: "Arroz salteado cubierto con tortilla de carne." },
+  { id: "tort-3", name: "Chaufa con Tortilla de Chancho", category: "Tortillas", price: 15.00, desc: "Arroz salteado cubierto con tortilla de chancho asado." },
+  { id: "tort-4", name: "Chaufa con Tortilla de Verduras 'Sin Pollo'", category: "Tortillas", price: 14.00, desc: "Arroz salteado cubierto con tortilla de verduras." },
+  { id: "tort-5", name: "Chaufa con Tortilla de Champiñones", category: "Tortillas", price: 15.00, desc: "Arroz salteado cubierto con tortilla de champiñones." },
+  { id: "tort-6", name: "Chaufa con Tortilla de Langostinos", category: "Tortillas", price: 17.00, desc: "Arroz salteado cubierto con tortilla de langostinos." },
+  { id: "tort-7", name: "Chaufa con Tortilla de Verduras y Champiñones", category: "Tortillas", price: 17.00, desc: "Arroz salteado cubierto con tortilla de verduras y champiñones." },
+  { id: "tort-8", name: "Chaufa con Tortilla Mixta (Pollo y Verduras)", category: "Tortillas", price: 17.00, desc: "Arroz salteado cubierto con tortilla de pollo y verduras." },
+  { id: "tort-9", name: "Chaufa con Tortilla Mixta (Pollo y Carne)", category: "Tortillas", price: 17.00, desc: "Arroz salteado cubierto con tortilla de pollo y carne." },
+  { id: "tort-10", name: "Chaufa con Tortilla Mixta (Pollo y Chancho)", category: "Tortillas", price: 17.00, desc: "Arroz salteado cubierto con tortilla de pollo y chancho." },
+  { id: "tort-11", name: "Chaufa con Tortilla Mixta (Carne y Chancho)", category: "Tortillas", price: 18.00, desc: "Arroz salteado cubierto con tortilla de carne y chancho." },
+  { id: "tort-12", name: "Chaufa con Tortilla Especial", category: "Tortillas", price: 20.00, badge: "Especial ⭐", desc: "Arroz salteado cubierto con tortilla de pollo, carne, chancho, champiñones y langostinos." },
 
-  /* COMBINADOS */
-  { id: "comb-1", name: "Chaufa con Lomo Saltado", category: "Combinados", price: 13.50, desc: "Chaufa combinado con Lomo Saltado jugoso." },
-  { id: "comb-2", name: "Chaufa con Lomo Saltado + Huevo", category: "Combinados", price: 14.50, desc: "Chaufa combinado con Lomo Saltado y huevo frito." },
-  { id: "comb-3", name: "Chaufa con Saltado de Pollo", category: "Combinados", price: 13.50, desc: "Chaufa servido con saltado de pollo." },
-  { id: "comb-4", name: "Chaufa con Saltado de Pollo + Huevo", category: "Combinados", price: 14.50, desc: "Chaufa con saltado de pollo y huevo frito." },
-  { id: "comb-5", name: "Chaufa con Lomo Saltado + Tallarín Saltado con Pollo", category: "Combinados", price: 18.00, badge: "Dúo Furia 🔥", desc: "Trío potente: Chaufa, Lomo Saltado y Tallarín de Pollo." },
-  { id: "comb-6", name: "Chaufa con Saltado de Pollo + Tallarín Saltado con Carne", category: "Combinados", price: 18.00, desc: "Combinación de Chaufa, Saltado de Pollo y Tallarín de Carne." },
-  { id: "comb-7", name: "Chaufa con Tallarín Saltado de Carne", category: "Combinados", price: 13.50, desc: "Clásico dúo de Chaufa con Tallarín de Carne." },
-  { id: "comb-8", name: "Chaufa con Tallarín Saltado de Pollo", category: "Combinados", price: 13.50, desc: "Dúo popular de Chaufa con Tallarín de Pollo." },
-  { id: "comb-9", name: "Chaufa con Tallarín Saltado de Champiñones", category: "Combinados", price: 13.50, desc: "Chaufa servido con Tallarín de Champiñones." },
-  { id: "comb-10", name: "Chaufa con Tallarín Saltado de Pollo y Verduras", category: "Combinados", price: 14.50, desc: "Chaufa con Tallarín de pollo salteado con verduras." },
-  { id: "comb-11", name: "Chaufa con Tallarín Saltado de Pollo y Champiñones", category: "Combinados", price: 14.50, desc: "Chaufa con Tallarín de pollo y champiñones." },
-  { id: "comb-12", name: "Chaufa con Tortilla de Pollo", category: "Combinados", price: 13.50, desc: "Chaufa caliente con jugosa tortilla de pollo." },
-  { id: "comb-13", name: "Chaufa con Tortilla de Carne", category: "Combinados", price: 13.50, desc: "Chaufa servido con tortilla de carne picada." },
-  { id: "comb-14", name: "Chaufa con Tortilla de Salchicha", category: "Combinados", price: 13.50, desc: "Chaufa servido con tortilla frita de salchicha." },
-  { id: "comb-15", name: "Chaufa con Tortilla Especial", category: "Combinados", price: 15.00, desc: "Chaufa con tortilla especial de carnes mixtas." },
-  { id: "comb-16", name: "Chaufa con Tortilla de Verduras", category: "Combinados", price: 13.50, desc: "Chaufa servido con tortilla salteada de verduras." },
-  { id: "comb-17", name: "Chaufa con Tortilla de Verduras y Pollo", category: "Combinados", price: 14.50, desc: "Chaufa con tortilla de verduras mixtas y pollo." },
-  { id: "comb-18", name: "Chaufa con Tortilla de Verduras con Carne", category: "Combinados", price: 14.50, desc: "Chaufa con tortilla de verduras mixtas y carne." },
-  { id: "comb-19", name: "Chaufa con Tortilla de Champiñones", category: "Combinados", price: 13.50, desc: "Chaufa servido con tortilla de champiñones." },
-  { id: "comb-20", name: "Chaufa con Tortilla de Champiñones y Pollo", category: "Combinados", price: 14.50, desc: "Chaufa con tortilla de champiñones frescos y pollo." },
-  { id: "comb-21", name: "Chaufa con Tortilla de Champiñones y Verduras", category: "Combinados", price: 14.50, desc: "Chaufa con tortilla de champiñones y verduras." },
-  { id: "comb-22", name: "Chaufa con Tortilla de Champiñones y Carne", category: "Combinados", price: 14.50, desc: "Chaufa con tortilla de champiñones y tiras de carne." },
-  { id: "comb-23", name: "Chaufa con Tortilla de Champiñones, Pollo y Verduras", category: "Combinados", price: 15.00, desc: "Chaufa con tortilla completa de champiñones, pollo y verduras." },
-  { id: "comb-24", name: "Chaufa con Tortilla 'Fu Lai'", category: "Combinados", price: 16.00, badge: "Especial ⭐", desc: "Chaufa con la tortilla especial completa de la casa." },
+  /* PLATOS SALADOS */
+  { id: "sal-1", name: "Pollo Chijaukay", category: "Platos Salados", price: 16.00, desc: "Pollo crocante en salsa de ostión tradicional." },
+  { id: "sal-2", name: "Pollo Chijaukay en Salsa de Champiñones", category: "Platos Salados", price: 18.00, desc: "Pollo crocante en salsa de ostión con champiñones." },
+  { id: "sal-3", name: "Pollo Enrollado con Espárragos", category: "Platos Salados", price: 18.00, desc: "Pollo enrollado con espárragos en salsa de ostión." },
+  { id: "sal-4", name: "Pollo Enrollado con Espárragos en Salsa de Champiñones", category: "Platos Salados", price: 19.00, desc: "Pollo enrollado con espárragos y salsa de champiñones." },
+  { id: "sal-5", name: "Pollo con Verduras", category: "Platos Salados", price: 14.00, desc: "Pollo y verduras frescas salteadas al wok." },
+  { id: "sal-6", name: "Carne con Verduras", category: "Platos Salados", price: 14.00, desc: "Carne de res y verduras salteadas al wok." },
+  { id: "sal-7", name: "Chancho con Verduras", category: "Platos Salados", price: 16.00, desc: "Chancho asado y verduras salteadas al wok." },
+  { id: "sal-8", name: "Pollo con Verduras y Champiñones", category: "Platos Salados", price: 17.00, desc: "Verduras, champiñones y pollo salteados al wok." },
+  { id: "sal-9", name: "Combinado de Pollo", category: "Platos Salados", price: 15.00, desc: "Arroz chaufa y tallarín saltado de pollo con verduras al wok." },
+  { id: "sal-10", name: "Combinado de Carne", category: "Platos Salados", price: 15.00, desc: "Arroz chaufa y tallarín saltado de carne con verduras al wok." },
+  { id: "sal-11", name: "Combinado de Chancho", category: "Platos Salados", price: 17.00, desc: "Arroz chaufa y tallarín saltado de chancho con verduras al wok." },
+  { id: "sal-12", name: "Combinado de Pollo y Chancho", category: "Platos Salados", price: 18.00, desc: "Arroz chaufa y tallarín saltado de pollo y chancho al wok." },
+  { id: "sal-13", name: "Combinado de Pollo y Carne", category: "Platos Salados", price: 18.00, desc: "Arroz chaufa y tallarín saltado de pollo y carne al wok." },
+  { id: "sal-14", name: "Combinado Especial 'Taypa'", category: "Platos Salados", price: 21.00, badge: "Taipá ⭐", desc: "Chaufa y tallarín con pollo, carne, chancho, champiñones y langostinos." },
+  { id: "sal-15", name: "Tallarín de Pollo", category: "Platos Salados", price: 14.00, desc: "Fideos chinos saltados al wok con pollo y verduras." },
+  { id: "sal-16", name: "Tallarín de Carne", category: "Platos Salados", price: 14.00, desc: "Fideos chinos saltados al wok con carne y verduras." },
+  { id: "sal-17", name: "Tallarín de Chancho", category: "Platos Salados", price: 16.00, desc: "Fideos chinos saltados al wok con chancho y verduras." },
+  { id: "sal-18", name: "Tallarín Taypa", category: "Platos Salados", price: 20.00, badge: "Taypa ⭐", desc: "Fideos saltados con pollo, res, chancho, langostinos, huevos de codorniz y champiñones." },
 
-  /* BEBIDAS & EXTRAS */
-  { id: "beb-1", name: "Coca Cola / Inka Kola 1 Litro", category: "Bebidas", price: 8.00, desc: "Gaseosa helada de 1 Litro ideal para compartir." },
-  { id: "ext-1", name: "Porción de Plátano", category: "Extras", price: 3.00, desc: "Porción de plátanos fritos doraditos." },
-  { id: "ext-2", name: "01 Huevo Adicional", category: "Extras", price: 2.00, desc: "Huevo frito adicional montado." },
-  { id: "ext-3", name: "Porción de Arroz Chaufa", category: "Extras", price: 3.00, desc: "Porción extra de arroz chaufa frito al wok." }
+  /* PLATOS AGRIDULCES */
+  { id: "agri-1", name: "Pollo Tipakai", category: "Platos Agridulces", price: 16.00, desc: "Pollo crujiente en salsa tamarindo artesanal." },
+  { id: "agri-2", name: "Pollo con Piña", category: "Platos Agridulces", price: 14.00, desc: "Pollo crujiente y piña fresca salteados en salsa agridulce." },
+  { id: "agri-3", name: "Pollo con Durazno", category: "Platos Agridulces", price: 15.00, desc: "Pollo crujiente y durazno fresco salteados en salsa agridulce." },
+  { id: "agri-4", name: "Pollo con Tamarindo", category: "Platos Agridulces", price: 16.00, desc: "Pollo crujiente con piña y durazno en salsa agridulce de tamarindo." },
+  { id: "agri-5", name: "Pollo Enrollado con Espárragos", category: "Platos Agridulces", price: 18.00, desc: "Pollo enrollado crujiente con piña y durazno en salsa agridulce de tamarindo." },
+  { id: "agri-6", name: "Chancho con Piña", category: "Platos Agridulces", price: 17.00, desc: "Cerdo y piña fresca en salsa agridulce." },
+  { id: "agri-7", name: "Chancho con Durazno", category: "Platos Agridulces", price: 17.00, desc: "Cerdo y durazno en salsa agridulce." },
+  { id: "agri-8", name: "Chancho Tamarindo", category: "Platos Agridulces", price: 18.00, desc: "Cerdo con piña y durazno en salsa agridulce de tamarindo." },
+  { id: "agri-9", name: "Pollo Limonkai", category: "Platos Agridulces", price: 16.00, desc: "Pollo crocante en láminas bañado en salsa agridulce de limón." },
+  { id: "agri-10", name: "Pollo a la Naranja", category: "Platos Agridulces", price: 16.00, desc: "Pollo crocante en láminas bañado en salsa agridulce de naranja." },
+  { id: "agri-11", name: "Kanlu Wantan", category: "Platos Agridulces", price: 20.00, badge: "Especial ⭐", desc: "Wantanes crocantes con pollo, chancho, frutas y huevitos de codorniz en salsa agridulce." },
+
+  /* PLATOS A LA PLANCHA */
+  { id: "planch-1", name: "Taypa a la Plancha", category: "Platos a la Plancha", price: 22.00, badge: "Espectacular 🔥", desc: "Pollo, carne, chancho, langostinos, champiñones y huevitos de codorniz salteados en plancha caliente." },
+  { id: "planch-2", name: "Pollo con Verduras a la Plancha", category: "Platos a la Plancha", price: 18.00, desc: "Pollo salteado con verduras, servidos en plancha caliente." },
+  { id: "planch-3", name: "Pollo Enrollado con Espárragos a la Plancha", category: "Platos a la Plancha", price: 20.00, desc: "Pollo enrollado crocante en plancha caliente con salteado de verduras orientales." },
+
+  /* CRIOLLOS CON CHAUFA */
+  { id: "crio-1", name: "Tallarín Saltado (Pollo o Carne)", category: "Criollos con Chaufa", price: 12.00, desc: "Fideos saltados al wok con jugosos trozos de carne o pollo." },
+  { id: "crio-2", name: "Chaufa con Lomo Saltado", category: "Criollos con Chaufa", price: 14.00, desc: "Jugosos trozos de lomo saltado con cebolla y tomate, acompañados de arroz chaufa." },
+  { id: "crio-3", name: "Chaufa con Saltado de Pollo", category: "Criollos con Chaufa", price: 14.00, desc: "Trozos de pollo salteados al wok acompañados de arroz chaufa." },
+  { id: "crio-4", name: "Chaufa con Pollo a la Plancha", category: "Criollos con Chaufa", price: 14.00, desc: "Jugosa pechuga de pollo a la plancha acompañada de arroz chaufa." },
+  { id: "crio-5", name: "Chaufa con Milanesa de Pollo", category: "Criollos con Chaufa", price: 14.00, desc: "Crujiente pechuga de pollo empanizada acompañada de arroz chaufa." },
+  { id: "crio-6", name: "Chaufa con Tallarín Saltado (Pollo o Carne)", category: "Criollos con Chaufa", price: 14.00, desc: "Porción de arroz chaufa servida junto a un jugoso tallarín saltado criollo." },
+  { id: "crio-7", name: "Chaufa con Bistec Montado", category: "Criollos con Chaufa", price: 15.00, desc: "Filete de res frito con huevo montado, papas y arroz chaufa." },
+  { id: "crio-8", name: "Chaufa con Pollo Montado", category: "Criollos con Chaufa", price: 15.00, desc: "Filete de pollo frito con huevo montado, papas y arroz chaufa." },
+  { id: "crio-9", name: "Chaufa con Bistec Montado a lo Pobre", category: "Criollos con Chaufa", price: 16.00, desc: "Filete de res frito con huevo montado, papas, plátano frito, salchicha y arroz chaufa." },
+  { id: "crio-10", name: "Chaufa con Pollo Montado a lo Pobre", category: "Criollos con Chaufa", price: 16.00, desc: "Filete de pollo frito con huevo montado, papas, plátano frito, salchicha y arroz chaufa." },
+  { id: "crio-11", name: "Chaufa con Lomo Saltado a lo Pobre", category: "Criollos con Chaufa", price: 16.00, desc: "Lomo saltado con cebolla y tomate, servido con chaufa, huevo, salchicha y plátano frito." },
+  { id: "crio-12", name: "Chaufa con Saltado de Pollo a lo Pobre", category: "Criollos con Chaufa", price: 16.00, desc: "Trozos de pollo salteado acompañados de arroz chaufa, huevo, salchicha y plátano frito." },
+  { id: "crio-13", name: "Chaufa con Pollo a la Plancha a lo Pobre", category: "Criollos con Chaufa", price: 16.00, desc: "Pechuga a la plancha con arroz chaufa, huevo, plátano frito y salchicha." },
+  { id: "crio-14", name: "Chaufa con Milanesa de Pollo a lo Pobre", category: "Criollos con Chaufa", price: 16.00, desc: "Pechuga empanizada con arroz chaufa, huevo, papas, plátano y salchicha." },
+
+  /* COMBOS TRIOS */
+  { id: "trio-1", name: "Chaufa + Tipakai + Chijaukai con Wantán", category: "Combos Tríos", price: 20.00, badge: "Trío N° 1 🔥", desc: "Arroz chaufa, pollo tipakai agridulce, pollo chijaukai y wantán frito." },
+  { id: "trio-2", name: "Chaufa + Pollo con Verduras + Pollo Durazno con Wantán", category: "Combos Tríos", price: 20.00, badge: "Trío N° 2 🔥", desc: "Arroz chaufa, pollo salteado con verduras, pollo durazno agridulce y wantán frito." },
+  { id: "trio-3", name: "Chaufa + Lomo + Pollo con Piña con Wantán", category: "Combos Tríos", price: 20.00, badge: "Trío N° 3 🔥", desc: "Arroz chaufa, lomo saltado, pollo con piña agridulce y wantán frito." },
+
+  /* BEBIDAS */
+  { id: "beb-1", name: "Gaseosa Personal 400ml", category: "Bebidas", price: 3.00, desc: "Gaseosa personal helada." },
+  { id: "beb-2", name: "Gaseosa Personal 625ml", category: "Bebidas", price: 4.00, desc: "Gaseosa personal mediana." },
+  { id: "beb-3", name: "Gordita", category: "Bebidas", price: 5.00, desc: "Gaseosa personal de formato gordita." },
+  { id: "beb-4", name: "Gaseosa 1 Litro", category: "Bebidas", price: 8.00, desc: "Gaseosa de 1Lt helada ideal para compartir." },
+  { id: "beb-5", name: "Gaseosa 2 Litros", category: "Bebidas", price: 11.00, desc: "Gaseosa familiar de 2Lt helada." },
+  { id: "beb-6", name: "Limonada (1 Litro)", category: "Bebidas", price: 8.00, desc: "Limonada artesanal helada de la casa." },
+  { id: "beb-7", name: "Chicha Morada (1 Litro)", category: "Bebidas", price: 8.00, desc: "Chicha morada natural preparada con maíz morado." },
+  { id: "beb-8", name: "Maracuyá (1 Litro)", category: "Bebidas", price: 8.00, desc: "Refresco natural de maracuyá helado." },
+  { id: "beb-9", name: "Infusiones", category: "Bebidas", price: 3.00, desc: "Manzanilla, té, hierba luisa o anís." },
+  { id: "beb-10", name: "Café Pasar", category: "Bebidas", price: 3.00, desc: "Café caliente pasado." }
 ];
 
 const VALID_COUPONS = {
@@ -174,7 +176,7 @@ const VALID_COUPONS = {
 /* 2. ESTADO GLOBAL DE LA APLICACIÓN         */
 /* ========================================== */
 let cart = [];
-let selectedCategory = "Todos";
+let selectedCategory = "Recomendaciones";
 let searchQuery = "";
 let serviceType = "sala";
 let payMethod = "yape";
@@ -329,7 +331,7 @@ function attachEventListeners() {
     item.addEventListener('click', () => toggleFaq(item));
   });
 
-  document.getElementById('promo-add-btn')?.addEventListener('click', () => addToCart('combo-a'));
+  document.getElementById('promo-add-btn')?.addEventListener('click', () => addToCart('rec-a'));
 }
 
 function handleCartActionClick(e) {
@@ -421,7 +423,7 @@ function clearSearch() {
 }
 
 function resetFilters() {
-  selectedCategory = "Todos";
+  selectedCategory = "Recomendaciones";
   clearSearch();
   renderCategories();
 }
@@ -433,7 +435,7 @@ function renderCatalog() {
   if (!container || !emptyState) return;
 
   const filtered = PRODUCTS.filter(p => 
-    (selectedCategory === "Todos" || p.category === selectedCategory) && 
+    (p.category === selectedCategory) && 
     (searchQuery === "" || p.name.toLowerCase().includes(searchQuery))
   );
 
@@ -446,48 +448,19 @@ function renderCatalog() {
   container.classList.remove('hidden');
   emptyState.classList.add('hidden');
 
-  if (selectedCategory === "Todos" && searchQuery === "") {
-    const grouped = {};
-    filtered.forEach(p => {
-      if (!grouped[p.category]) grouped[p.category] = [];
-      grouped[p.category].push(p);
-    });
-
-    let html = '';
-    for (const cat in grouped) {
-      const title = SECTION_TITLES[cat] || cat;
-      const isCombosSection = (cat === "Combos");
-
-      html += `
-        <div class="space-y-3">
-          <h3 class="text-xs font-black uppercase tracking-wider text-amber-gold border-b pb-1.5">${title}</h3>
-          ${isCombosSection ? `
-            <div class="combos-grid">
-              ${grouped[cat].map(p => renderComboCard(p)).join('')}
-            </div>
-          ` : `
-            <div class="space-y-3">
-              ${grouped[cat].map(p => renderProductCard(p)).join('')}
-            </div>
-          `}
-        </div>
-      `;
-    }
-    container.innerHTML = html;
+  // Si la categoría seleccionada es Recomendaciones, renderiza en Grid con Imágenes
+  if (selectedCategory === "Recomendaciones") {
+    container.innerHTML = `
+      <div class="combos-grid">
+        ${filtered.map(p => renderComboCard(p)).join('')}
+      </div>
+    `;
   } else {
-    if (selectedCategory === "Combos") {
-      container.innerHTML = `
-        <div class="combos-grid">
-          ${filtered.map(p => renderComboCard(p)).join('')}
-        </div>
-      `;
-    } else {
-      container.innerHTML = `
-        <div class="space-y-3">
-          ${filtered.map(p => (p.category === "Combos" ? renderComboCard(p) : renderProductCard(p))).join('')}
-        </div>
-      `;
-    }
+    container.innerHTML = `
+      <div class="space-y-3">
+        ${filtered.map(p => (p.category === "Recomendaciones" ? renderComboCard(p) : renderProductCard(p))).join('')}
+      </div>
+    `;
   }
 }
 
@@ -520,7 +493,7 @@ function renderProductCard(p) {
 function renderComboCard(p) {
   const item = cart.find(i => i.id === p.id);
   const qty = item ? item.qty : 0;
-  const imageSrc = p.image || 'img/combos/combo-a.jpg';
+  const imageSrc = p.image || 'img/combos/combo-a.svg';
 
   return `
     <div class="glass-card rounded-3xl p-3.5 combo-card card-hover-effect">
@@ -821,7 +794,7 @@ function sendWhatsAppOrder() {
   let msg = `*¡NUEVO PEDIDO - CHIFA FU LAI!* 🍜\n`;
   msg += `👤 *Cliente:* ${custName}\n`;
   msg += `🛵 *Modalidad:* ${isTakeaway ? '🥡 PARA LLEVAR / RECOJO' : '🍽️ EN SALA'}\n`;
-  msg += `💳 *Pago:* ${payMethod.toUpperCase()} (Titular: David Reyes)\n`;
+  msg += `💳 *Pago:* ${payMethod.toUpperCase()} (Titular: Edwin David T.)\n`;
   if (custNotes) msg += `📝 *Notas:* ${custNotes}\n`;
   msg += `------------------------------------------\n`;
   cart.forEach(i => msg += `• ${i.qty}x ${i.name} - S/. ${(i.price * i.qty).toFixed(2)}\n`);
@@ -835,7 +808,6 @@ function sendWhatsAppOrder() {
 
   closeCheckoutModal();
 
-  // Reset del estado completo tras la orden
   cart = [];
   appliedCoupon = null;
   custNotes = "";
@@ -852,7 +824,6 @@ function sendWhatsAppOrder() {
   updateCartUI();
   renderCatalog();
 
-  // Redirección directa para preservar el User Gesture Context en navegadores móviles
   window.location.href = whatsappUrl;
 }
 
@@ -888,7 +859,7 @@ function spinRouletteRecommendation() {
   const activeTypeBtn = document.querySelector('.hunger-type-btn.active');
   const hungerType = activeTypeBtn ? activeTypeBtn.dataset.type : 'solo';
 
-  const dishes = PRODUCTS.filter(p => p.category !== 'Bebidas' && p.category !== 'Extras');
+  const dishes = PRODUCTS.filter(p => p.category !== 'Bebidas');
   const drinks = PRODUCTS.filter(p => p.category === 'Bebidas');
 
   let recommendation = null;
@@ -1015,7 +986,7 @@ function spinRouletteRecommendation() {
 
 function getBanquetDistribution(guests) {
   const totalMainDishes = Math.max(2, Math.round(guests * 0.8));
-  const catalogPool = PRODUCTS.filter(p => p.category !== 'Bebidas' && p.category !== 'Extras');
+  const catalogPool = PRODUCTS.filter(p => p.category !== 'Bebidas');
 
   const distributionMap = new Map();
   for (let i = 0; i < totalMainDishes; i++) {
@@ -1034,7 +1005,7 @@ function getBanquetDistribution(guests) {
 
   const result = Array.from(distributionMap.values());
   const bebidasQty = Math.max(1, Math.ceil(guests / 4));
-  const drink = PRODUCTS.find(p => p.id === 'beb-1') || { id: 'beb-1', name: 'Gaseosa Coca Cola / Inka Kola 1 Litro', price: 8.00 };
+  const drink = PRODUCTS.find(p => p.id === 'beb-4') || { id: 'beb-4', name: 'Gaseosa 1 Litro', price: 8.00 };
 
   result.push({
     id: drink.id,
@@ -1158,7 +1129,7 @@ function fallbackCopyText(text, successMsg) {
 }
 
 function copyYapeNumber() {
-  safeCopyText("900390458", "¡Número Yape/Plin 900 390 458 (David Reyes) copiado!");
+  safeCopyText("900390458", "¡Número Yape/Plin 900 390 458 (Edwin David T.) copiado!");
 }
 
 function copyCouponCode(code) {
