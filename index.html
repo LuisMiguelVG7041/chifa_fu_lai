@@ -1,0 +1,1177 @@
+<!-- ====================================================================
+     PROYECTO: CHIFA FU LAI - CARTA DIGITAL & SISTEMA DE PEDIDOS
+     ARCHIVO: index.html (Estructura HTML5 Principal - SPA)
+     VERSIÓN: 2.0.0 (Edición Chifa Fu Lai 100% Completa)
+     AUTOR: Chifa Fu Lai - Equipo de Desarrollo Web
+     UBICACIÓN: Av. El Sol 456, Centro Histórico, Cusco, Perú
+     DESCRIPCIÓN: Interfaz web responsive Single Page Application (SPA) 
+                  diseñada para ventas y pedidos directos por WhatsApp.
+                  Incluye catálogo dinámico de productos, cupones de descuento,
+                  asistente "Sorpréndeme", calculadora de banquetes, mapa 
+                  interactivo, acordeón FAQ y botones flotantes laterales.
+     ==================================================================== -->
+
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <!-- METADATOS BÁSICOS Y CONFIGURACIÓN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHIFA FU LAI - Carta Digital & Pedidos | ¡Sabor que conquista!</title>
+
+  <!-- SEGURIDAD HTTP Y CONTENT SECURITY POLICY (CSP) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://placehold.co https://*.google.com https://*.gstatic.com; frame-src 'self' https://maps.google.com https://www.google.com https://*.google.com; connect-src 'self';" />
+
+  <!-- METADATOS SEO Y OPEN GRAPH (SOCIAL MEDIA PREVIEWS) -->
+  <meta name="description" content="Carta digital y sistema de pedidos al wok del restaurante Chifa Fu Lai en Cusco, Av. El Sol 456. ¡Sabor que conquista con platos taipá salteados al fuego vivo!" />
+  <meta property="og:title" content="CHIFA FU LAI - Carta Digital & Pedidos | Cusco" />
+  <meta property="og:description" content="¡Sabor que conquista! Chaufas, Combos, Tallarines y Banquetes en Av. El Sol 456, Cusco." />
+  <meta property="og:image" content="img/combos/combo-a.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_PE" />
+
+  <!-- FAVICON COMERCIAL -->
+  <link rel="icon" type="image/svg+xml" href="img/gemini-svg.svg" />
+  
+  <!-- HOJA DE ESTILOS PRINCIPAL -->
+  <link rel="stylesheet" href="style/style.css" />
+  
+  <!-- FUENTES TIPOGRÁFICAS (GOOGLE FONTS - PLUS JAKARTA SANS) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-cream dark-bg-dark text-slate-900 dark-text-slate-100 min-h-screen">
+
+  <!-- ==================================================================== -->
+  <!-- ENCABEZADO GENERAL DE LA APLICACIÓN (HEADER & NAVEGACIÓN STICKY)     -->
+  <!-- ==================================================================== -->
+  <header id="main-header" class="header-nav sticky-top z-40 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      
+      <!-- SUBSECCIÓN: BRANDING, ESTADO DEL LOCAL Y BOTÓN DE TEMA -->
+      <div class="flex items-center justify-between gap-3">
+        
+        <!-- Logo Interactivo y Nombre Comercial -->
+        <button type="button" class="flex items-center gap-3 cursor-pointer brand-btn text-left bg-transparent border-0 group" id="brand-logo-btn" aria-label="Ir al inicio de la carta">
+          
+          <!-- Icono SVG del Logo con Wok y Llamas al Fuego -->
+          <div class="brand-logo-box w-11 h-11 rounded-2xl flex items-center justify-center text-slate-950 flex-shrink-0 relative overflow-hidden">
+            <div class="absolute inset-0 brand-logo-shine opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <svg class="w-6 h-6 brand-flame-icon text-slate-950 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8.5 8.5C8 6.5 9 5 10 3.5C11 5 10.5 6.5 10 7.5" stroke="#8B0000" stroke-width="1.8" />
+              <path d="M12 9C11.5 6.5 13 4.5 14.5 3C15.5 5 14.5 7 13.5 8" stroke="#D32F2F" stroke-width="2" />
+              <path d="M15.5 9.5C15 8 16 7 16.5 6" stroke="#8B0000" stroke-width="1.5" />
+              <path d="M3.5 12C3.5 16.5 7.3 20.2 12 20.2C16.7 20.2 20.5 16.5 20.5 12H3.5Z" fill="currentColor" fill-opacity="0.25" />
+              <path d="M3 12H21" stroke-width="2.2" />
+              <path d="M1 11H3M21 11H23" stroke-width="2" />
+            </svg>
+          </div>
+
+          <!-- Títulos y Eslogan Comercial -->
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-base sm-text-lg font-black tracking-tight text-amber-300 m-0 leading-tight group-hover:text-amber-gold transition-colors">
+                CHIFA FU LAI
+              </h1>
+              <span class="badge-chifa-glow">Chifa</span>
+            </div>
+            <p class="text-sub-brand uppercase mt-0-5 flex items-center gap-1.5 m-0 font-extrabold tracking-wider text-micro">
+              <span>🔥 ¡SABOR QUE CONQUISTA!</span>
+              <span class="text-amber-gold opacity-50">•</span>
+              <span>CUSCO</span>
+            </p>
+          </div>
+        </button>
+
+        <!-- Acciones Superiores: Insignia Estado Escritorio y Conmutador de Modo Oscuro -->
+        <div class="flex items-center gap-3">
+          <div id="status-badge-desktop" class="hidden sm-inline-flex items-center gap-1-5 px-3-5 py-1 rounded-full text-xs font-bold bg-amber-trans text-amber-300 border-amber-trans">
+            <span id="dot-desktop" class="w-2-5 h-2-5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span id="text-desktop">ABIERTO</span>
+          </div>
+
+          <button id="theme-toggle-btn" class="w-10 h-10 rounded-xl bg-black-25 text-amber-300 flex items-center justify-center active-scale border-amber-trans cursor-pointer" aria-label="Cambiar Tema">
+            <svg id="theme-icon-sun" class="icon-md hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg id="theme-icon-moon" class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUBSECCIÓN: BARRA DE ESTADO SECUNDARIA PARA DISPOSITIVOS MÓVILES -->
+      <div class="mt-2-5 sm-hidden flex items-center justify-between text-xs border-t-amber pt-2">
+        <div id="status-badge-mobile" class="inline-flex items-center gap-1-5 px-2-5 py-0-5 rounded-full text-xs font-bold bg-amber-trans text-amber-200 border-amber-trans">
+          <span id="dot-mobile" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span id="text-mobile">ABIERTO (11:00 AM - 10:00 PM)</span>
+        </div>
+        <span class="text-xs font-medium text-amber-200">
+          📍 Av. El Sol 456
+        </span>
+      </div>
+
+      <!-- SUBSECCIÓN: PESTAÑAS DE NAVEGACIÓN PRINCIPAL (Navegación SPA) -->
+      <nav class="flex items-center gap-1-5 mt-3 pt-1 border-t-amber overflow-x-auto no-scrollbar scroll-smooth w-full" aria-label="Navegación principal" role="tablist">
+        <button id="tab-btn-sec-carta" class="tab-btn active-tab flex-1 min-w-max px-3-5 py-1-5 rounded-xl text-xs font-black flex items-center justify-center gap-1-5 text-center" role="tab" aria-selected="true" aria-controls="sec-carta">
+          <span>Carta / Menú</span>
+        </button>
+        <button id="tab-btn-sec-promos" class="tab-btn flex-1 min-w-max px-3-5 py-1-5 rounded-xl text-xs font-black flex items-center justify-center gap-1-5 text-center" role="tab" aria-selected="false" aria-controls="sec-promos">
+          <span>Cupones</span>
+        </button>
+        <button id="tab-btn-sec-sorprendeme" class="tab-btn flex-1 min-w-max px-3-5 py-1-5 rounded-xl text-xs font-black flex items-center justify-center gap-1-5 text-center" role="tab" aria-selected="false" aria-controls="sec-sorprendeme">
+          <span>¿Qué comer?</span>
+        </button>
+        <button id="tab-btn-sec-banquetes" class="tab-btn flex-1 min-w-max px-3-5 py-1-5 rounded-xl text-xs font-black flex items-center justify-center gap-1-5 text-center" role="tab" aria-selected="false" aria-controls="sec-banquetes">
+          <span>Banquetes</span>
+        </button>
+        <button id="tab-btn-sec-nosotros" class="tab-btn flex-1 min-w-max px-3-5 py-1-5 rounded-xl text-xs font-black flex items-center justify-center gap-1-5 text-center" role="tab" aria-selected="false" aria-controls="sec-nosotros">
+          <span>Nosotros</span>
+        </button>
+        <button id="tab-btn-sec-ubicacion" class="tab-btn flex-1 min-w-max px-3-5 py-1-5 rounded-xl text-xs font-black flex items-center justify-center gap-1-5 text-center" role="tab" aria-selected="false" aria-controls="sec-ubicacion">
+          <span>Ubícanos</span>
+        </button>
+        <button id="tab-btn-sec-faq" class="tab-btn flex-1 min-w-max px-3-5 py-1-5 rounded-xl text-xs font-black flex items-center justify-center gap-1-5 text-center" role="tab" aria-selected="false" aria-controls="sec-faq">
+          <span>FAQ</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================================================================== -->
+  <!-- CONTENEDOR PRINCIPAL DE CONTENIDO SPA Y SIDEBAR                    -->
+  <!-- ==================================================================== -->
+  <main class="max-w-7xl mx-auto px-4 pt-5 pb-28 lg-pb-12">
+    <div class="lg-grid lg-grid-cols-12 lg-gap-6 items-start">
+      
+      <!-- ================================================================ -->
+      <!-- COLUMNA PRINCIPAL DE MÓDULOS (8 COLUMNAS DESKTOP)                -->
+      <!-- ================================================================ -->
+      <div class="lg-col-span-8 space-y-5">
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- MÓDULO 1: CARTA VIRTUAL Y CATÁLOGO DE PRODUCTOS                 -->
+        <!-- -------------------------------------------------------------- -->
+        <section id="sec-carta" class="spa-section space-y-4" role="tabpanel" aria-labelledby="tab-btn-sec-carta">
+          
+          <!-- Banner Hero de Bienvenida -->
+          <div class="hero-banner rounded-3xl p-5 sm-p-6 shadow-lg border-amber-trans text-white relative overflow-hidden">
+            <div class="relative z-10 space-y-2">
+              <div class="badge-hero inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold">
+                ✨ Sabor que conquista al Fuego Vivo
+              </div>
+              <h2 class="text-xl sm-text-2xl font-black leading-tight text-white m-0">
+                "El auténtico sabor peruano-chino servido con pasión y abundancia."
+              </h2>
+              <div class="flex flex-wrap gap-2 pt-1 text-xs">
+                <span class="chip-info">📍 Av. El Sol 456, Cusco</span>
+                <span class="chip-info">📞 +51 900 390 458</span>
+                <span class="chip-info">📦 +S/. 1.00 envase p/llevar</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra de Búsqueda Interactiva de Platos -->
+          <div class="relative">
+            <label for="search-input" class="sr-only">Buscar platos en el menú</label>
+            <div class="search-icon-wrapper">
+              <svg class="icon-md text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Buscar chaufa, combo, milanesa, tallarín..." 
+              class="search-field w-full rounded-2xl text-sm"
+              aria-label="Buscar platos en el menú"
+            />
+            <button id="clear-search-btn" class="clear-btn hidden" aria-label="Limpiar búsqueda">
+              <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </button>
+          </div>
+
+          <!-- Navegador Horizontal de Categorías (Pills) -->
+          <div class="relative flex items-center gap-1-5">
+            <button id="scroll-cat-prev" aria-label="Anterior categoría" class="cat-nav-btn">
+              <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+
+            <div id="category-pills" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1-5 scroll-smooth flex-1">
+              <!-- Se renderiza dinámicamente mediante script.js -->
+            </div>
+
+            <button id="scroll-cat-next" aria-label="Siguiente categoría" class="cat-nav-btn">
+              <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+
+          <!-- Contenedor Dinámico de Tarjetas del Catálogo -->
+          <div id="catalog-container" class="space-y-6 pt-1">
+            <!-- Se renderiza dinámicamente mediante script.js -->
+          </div>
+
+          <!-- Estado Vacío cuando no hay Resultados de Búsqueda -->
+          <div id="empty-catalog-state" class="hidden text-center py-12 px-4 space-y-3 glass-card rounded-3xl">
+            <div class="w-16 h-16 mx-auto rounded-full bg-slate-100 dark-bg-slate-800 flex items-center justify-center text-3xl">
+              🥢
+            </div>
+            <h3 class="text-base font-bold">No encontramos platos que coincidan</h3>
+            <p class="text-xs text-slate-500">Intenta buscar con otros términos como "Chaufa", "Combo" o "Lomo".</p>
+            <button id="reset-filters-btn" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-crimson text-white text-xs font-bold active-scale cursor-pointer border-0">
+              🔄 Ver todo el menú
+            </button>
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- MÓDULO 2: PROMOCIONES Y CUPONES DE DESCUENTO                    -->
+        <!-- -------------------------------------------------------------- -->
+        <section id="sec-promos" class="spa-section hidden space-y-5" role="tabpanel" aria-labelledby="tab-btn-sec-promos">
+          
+          <!-- Banner Oferta Flash con Temporizador -->
+          <div class="glass-card rounded-3xl p-5 border-2 border-amber-400 space-y-4">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <span class="badge-flash">⚡ Oferta Flash Fu Lai</span>
+              <div class="flex items-center gap-1-5 text-xs font-black">
+                <span>⏰ Termina en:</span>
+                <span id="promo-timer" class="timer-box">03:45:12</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-3.5 rounded-2xl bg-amber-soft border-amber-trans">
+              <div class="space-y-1 flex-1">
+                <h3 class="text-sm font-black m-0">Combo A: Chaufa c/ Lomo Saltado + Tortilla</h3>
+                <p class="text-xs text-slate-500 m-0">Pide hoy y obtén porción adicional de plátano frito gratis.</p>
+                <div class="mt-2 flex items-center gap-2">
+                  <span class="text-xs text-slate-400 line-through">S/. 17.00</span>
+                  <span class="text-sm font-black text-crimson dark-text-amber">S/. 16.00</span>
+                </div>
+              </div>
+              <button id="promo-add-btn" class="btn-primary-sm cursor-pointer">+ Aprovechar</button>
+            </div>
+          </div>
+
+          <!-- Lista de Cupones Disponibles -->
+          <div class="space-y-3">
+            <h3 class="text-sm font-black flex items-center gap-2 m-0">🎟️ Cupones de Descuento Fu Lai</h3>
+
+            <!-- Cupón 1: Bienvenida -->
+            <div class="glass-card rounded-2xl p-4 flex items-center justify-between border-l-4 border-l-amber">
+              <div class="space-y-1">
+                <span class="coupon-tag text-amber">Cupón de Bienvenida</span>
+                <h4 class="text-xs font-black m-0">FULAI10</h4>
+                <p class="text-xs text-slate-500 m-0">Descuento de S/. 2.00 en pedidos mayores a S/. 30.00</p>
+              </div>
+              <button class="btn-copy-coupon cursor-pointer" data-code="FULAI10">📋 Copiar</button>
+            </div>
+
+            <!-- Cupón 2: Clientes Frecuentes -->
+            <div class="glass-card rounded-2xl p-4 flex items-center justify-between border-l-4 border-l-crimson">
+              <div class="space-y-1">
+                <span class="coupon-tag text-crimson">Clientes Frecuentes</span>
+                <h4 class="text-xs font-black m-0">FULAIVIP</h4>
+                <p class="text-xs text-slate-500 m-0">Descuento de S/. 3.00 en compras de más de 3 platos</p>
+              </div>
+              <button class="btn-copy-coupon btn-crimson-copy cursor-pointer" data-code="FULAIVIP">📋 Copiar</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- MÓDULO 3: ASISTENTE INTERACTIVO "¿QUÉ COMER HOY?"               -->
+        <!-- -------------------------------------------------------------- -->
+        <section id="sec-sorprendeme" class="spa-section hidden space-y-5" role="tabpanel" aria-labelledby="tab-btn-sec-sorprendeme">
+          <div class="glass-card rounded-3xl p-6 text-center space-y-4">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-soft text-3xl flex items-center justify-center">🎲</div>
+            <div>
+              <h2 class="text-lg font-black text-amber-gold m-0">¿No sabes qué pedir hoy en Chifa Fu Lai?</h2>
+              <p class="text-xs text-slate-500 m-0 mt-1">Ajusta tu presupuesto y nivel de hambre, ¡y déjanos elegir por ti!</p>
+            </div>
+
+            <!-- Formularios del Asistente -->
+            <div class="space-y-4 text-left pt-2">
+              <div class="space-y-1-5">
+                <div class="flex justify-between text-xs font-bold">
+                  <span>Tu Presupuesto Máximo:</span>
+                  <span id="budget-value" class="text-crimson dark-text-amber text-sm font-black">S/. 18.00</span>
+                </div>
+                <label for="budget-range" class="sr-only">Presupuesto máximo</label>
+                <input type="range" id="budget-range" min="8" max="30" step="1" value="18" class="range-slider" aria-label="Presupuesto máximo" />
+              </div>
+
+              <div class="space-y-1-5">
+                <label class="block text-xs font-bold">¿Con quién vas a comer?</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <button type="button" class="hunger-type-btn active cursor-pointer" data-type="solo">👤 Solo</button>
+                  <button type="button" class="hunger-type-btn cursor-pointer" data-type="pareja">👥 En Pareja</button>
+                  <button type="button" class="hunger-type-btn cursor-pointer" data-type="familiar">👨‍👩‍👧‍👦 Olla Taipá</button>
+                </div>
+              </div>
+            </div>
+
+            <button id="roulette-spin-btn" class="btn-gradient-wide cursor-pointer">
+              <span>🎲 ¡Sorpréndeme con la Elección Fu Lai!</span>
+            </button>
+          </div>
+
+          <!-- Tarjeta de Resultado de Recomendación -->
+          <div id="recommendation-result" class="hidden glass-card rounded-3xl p-5 border-2 border-amber-400 space-y-3">
+            <span class="badge-rec">Recomendación Fu Lai</span>
+            <h3 id="rec-title" class="text-base font-black m-0">--</h3>
+            <p id="rec-desc" class="text-xs text-slate-500 m-0">--</p>
+            <div class="flex items-center justify-between pt-2">
+              <span id="rec-price" class="text-base font-black text-crimson dark-text-amber">S/. 0.00</span>
+              <button id="rec-add-btn" class="btn-primary-sm cursor-pointer">+ Añadir a mi pedido</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- MÓDULO 4: CALCULADORA DE BANQUETES Y EVENTOS                   -->
+        <!-- -------------------------------------------------------------- -->
+        <section id="sec-banquetes" class="spa-section hidden space-y-5" role="tabpanel" aria-labelledby="tab-btn-sec-banquetes">
+          <div class="glass-card rounded-3xl p-6 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-crimson-soft text-2xl flex items-center justify-center flex-shrink-0">📦</div>
+              <div>
+                <h2 class="text-base font-extrabold text-amber-gold m-0">Calculadora de Banquetes Fu Lai</h2>
+                <p class="text-xs text-slate-500 m-0">Planifica la comida para tus eventos, reuniones o familia</p>
+              </div>
+            </div>
+
+            <div class="space-y-4 pt-2">
+              <div class="space-y-1-5">
+                <div class="flex justify-between text-xs font-bold">
+                  <span>Número de Personas:</span>
+                  <span id="guests-count" class="text-crimson dark-text-amber text-sm font-black">6 Personas</span>
+                </div>
+                <label for="guests-range" class="sr-only">Número de personas para el banquete</label>
+                <input type="range" id="guests-range" min="2" max="40" step="1" value="6" class="range-slider" aria-label="Número de personas" />
+              </div>
+
+              <!-- Resumen Calculado de Platos -->
+              <div class="banquet-summary-box space-y-2-5 text-xs p-4 rounded-2xl bg-slate-soft border">
+                <h4 class="font-extrabold border-b pb-1 m-0">Sugerencia de Menú Fu Lai:</h4>
+                <ul id="banquet-items-list" class="space-y-1 text-slate-500 list-none p-0 m-0"></ul>
+                <div class="pt-2 border-t flex justify-between items-center">
+                  <span class="font-bold">Costo Estimado Total:</span>
+                  <span id="banquet-total-price" class="text-sm font-black text-crimson dark-text-amber">S/. 0.00</span>
+                </div>
+              </div>
+
+              <button id="add-banquet-btn" class="btn-emerald-wide cursor-pointer">
+                🛒 Cargar Sugerencia al Carrito
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- MÓDULO 5: NOSOTROS, HISTORIA Y GARANTÍA DE CALIDAD              -->
+        <!-- -------------------------------------------------------------- -->
+        <section id="sec-nosotros" class="spa-section hidden space-y-5" role="tabpanel" aria-labelledby="tab-btn-sec-nosotros">
+          
+          <!-- Historia y Manifiesto Comercial -->
+          <div class="glass-card rounded-3xl p-6 space-y-4 border-2 border-amber-trans relative overflow-hidden">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-amber-soft text-2xl flex items-center justify-center flex-shrink-0">🏮</div>
+              <div>
+                <span class="badge-chifa-glow">Nuestra Identidad</span>
+                <h2 class="text-lg font-black text-amber-gold m-0 mt-1">La Esencia de Chifa Fu Lai</h2>
+              </div>
+            </div>
+
+            <p class="text-xs leading-relaxed text-slate-600 dark-text-slate-300 m-0">
+              En <strong class="text-crimson dark-text-amber">Chifa Fu Lai (Av. El Sol 456, Cusco)</strong> nos inspira un propósito claro: <eM>¡Sabor que conquista!</eM>. Combinamos la tradición milenaria del salteado al wok cantonés con los insumos más frescos del valle sagrado y la calidez del servicio cusqueño.
+            </p>
+
+            <p class="text-xs leading-relaxed text-slate-600 dark-text-slate-300 m-0">
+              Servimos porciones verdaderamente <strong>Taipá</strong>, pensadas para deleitar a cada comensal con un toque único de fuego vivo, vegetales crocantes y sazón inolvidable en cada bocado.
+            </p>
+
+            <!-- Métricas de Impacto Social -->
+            <div class="grid grid-cols-3 gap-2 pt-3 border-t border-b py-3 text-center">
+              <div class="space-y-0.5">
+                <span class="text-base font-black text-crimson dark-text-amber block">+60,000</span>
+                <span class="text-micro font-extrabold text-slate-500 uppercase tracking-wider block">Platos Servidos</span>
+              </div>
+              <div class="space-y-0.5 border-l border-r">
+                <span class="text-base font-black text-amber-gold block">4.9 ★</span>
+                <span class="text-micro font-extrabold text-slate-500 uppercase tracking-wider block">+500 Opiniones</span>
+              </div>
+              <div class="space-y-0.5">
+                <span class="text-base font-black text-emerald-600 dark-text-amber block">100%</span>
+                <span class="text-micro font-extrabold text-slate-500 uppercase tracking-wider block">Calidad Fu Lai</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Los 4 Pilares de Preparación -->
+          <div class="glass-card rounded-3xl p-6 space-y-4">
+            <div class="text-center space-y-1">
+              <h3 class="text-xs font-black uppercase tracking-wider text-amber-gold m-0">Nuestros 4 Pilares Fu Lai</h3>
+              <p class="text-micro text-slate-500 m-0">La fórmula que conquista el paladar cusqueño día a día</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <div class="feature-card space-y-1.5 p-4 rounded-2xl bg-slate-soft border">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">🔥</span>
+                  <h4 class="text-xs font-black m-0">Wok Hei al Instante</h4>
+                </div>
+                <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                  Cada plato es salteado individualmente al momento de tu pedido a altas temperaturas para lograr el ahumado perfecto.
+                </p>
+              </div>
+
+              <div class="feature-card space-y-1.5 p-4 rounded-2xl bg-slate-soft border">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">🍱</span>
+                  <h4 class="text-xs font-black m-0">Abundancia Taipá</h4>
+                </div>
+                <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                  Platos contundentes y llenos de sabor. Servimos porciones generosas para garantizar tu total satisfacción.
+                </p>
+              </div>
+
+              <div class="feature-card space-y-1.5 p-4 rounded-2xl bg-slate-soft border">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">🥬</span>
+                  <h4 class="text-xs font-black m-0">Insumos de Primera</h4>
+                </div>
+                <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                  Seleccionamos carnes, vegetales y especias frescas diariamente para garantizar la textura y aroma distintivo.
+                </p>
+              </div>
+
+              <div class="feature-card space-y-1.5 p-4 rounded-2xl bg-slate-soft border">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">🧼</span>
+                  <h4 class="text-xs font-black m-0">Higiene Insuperable</h4>
+                </div>
+                <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                  Cuidamos minuciosamente el protocolo de limpieza y manipulación de alimentos en cada etapa de preparación.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pasión Cusqueña al Wok -->
+          <div class="glass-card rounded-3xl p-6 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-crimson-soft text-xl flex items-center justify-center flex-shrink-0">👨‍🍳</div>
+              <div>
+                <h3 class="text-xs font-black uppercase tracking-wider text-amber-gold m-0">Maestros del Fuego Vivo</h3>
+                <p class="text-micro text-slate-500 m-0">Tradición y modernidad en la cocina oriental</p>
+              </div>
+            </div>
+
+            <p class="text-xs leading-relaxed text-slate-600 dark-text-slate-300 m-0">
+              En Chifa Fu Lai, nuestros chefs combinan años de maestría en el dominio de la llama viva con recetas secretas de adobo y salsas artesanales. Desde nuestros chaufas hasta los combinados especiales, cada plato refleja pasión por la buena comida.
+            </p>
+          </div>
+
+          <!-- Sello de Garantía Total -->
+          <div class="glass-card rounded-2xl p-4 flex items-center gap-3 border-l-4 border-l-amber bg-amber-soft">
+            <span class="text-2xl flex-shrink-0">🤝</span>
+            <div class="space-y-1">
+              <h4 class="text-xs font-black text-slate-900 dark-text-slate-100 m-0">Garantía de Satisfacción Fu Lai</h4>
+              <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                ¡Tu felicidad es primero! Si tu plato no llega con la temperatura adecuada o la sazón esperada, comunícate inmediatamente con nuestro equipo y te lo solucionamos al instante.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- MÓDULO 6: UBICACIÓN, MAPA GOOGLE MAPS Y REFERENCIAS             -->
+        <!-- -------------------------------------------------------------- -->
+        <section id="sec-ubicacion" class="spa-section hidden space-y-5" role="tabpanel" aria-labelledby="tab-btn-sec-ubicacion">
+          
+          <!-- Mapa e Información de Ubicación -->
+          <div class="glass-card rounded-3xl p-6 space-y-4 border-2 border-amber-trans">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-crimson-soft text-2xl flex items-center justify-center flex-shrink-0">📍</div>
+                <div>
+                  <span class="badge-chifa-glow">Centro Histórico - Cusco</span>
+                  <h2 class="text-lg font-black text-amber-gold m-0 mt-0.5">¿Dónde Encontrarnos?</h2>
+                </div>
+              </div>
+              <span class="text-micro font-extrabold px-3 py-1 rounded-full bg-amber-soft text-amber-gold border-amber-trans">
+                Av. El Sol 456, Cusco
+              </span>
+            </div>
+
+            <!-- Mapa Interactivo Integrado de Google Maps -->
+            <div class="relative w-full h-64 rounded-2xl overflow-hidden border shadow-inner">
+              <iframe 
+                title="Ubicación Chifa Fu Lai - Av El Sol Cusco"
+                src="https://maps.google.com/maps?q=Av.+El+Sol+456+Cusco&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                class="w-full h-full border-0" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+
+            <!-- Enlaces de Navegación Rápida -->
+            <div class="grid grid-cols-2 sm-grid-cols-4 gap-2 pt-1">
+              <a href="https://maps.google.com/?q=Av.+El+Sol+456+Cusco" target="_blank" rel="noopener noreferrer" class="btn-primary-link text-center">
+                🗺️ Google Maps
+              </a>
+              <a href="https://waze.com/ul?q=Av%20El%20Sol%20456%20Cusco" target="_blank" rel="noopener noreferrer" class="btn-primary-link bg-slate-800 text-center">
+                🚗 Abrir en Waze
+              </a>
+              <a href="https://wa.me/51916153738?text=Hola,%20quisiera%20pedir%20para%20recoger%20en%20el%20local" target="_blank" rel="noopener noreferrer" class="btn-emerald-link text-center">
+                💬 Pedir p/ Recoger
+              </a>
+              <a href="tel:916153738" class="btn-emerald-link bg-emerald-700 text-center">
+                📞 Llamar al Local
+              </a>
+            </div>
+          </div>
+
+          <!-- Guía de Referencias Locales -->
+          <div class="glass-card rounded-3xl p-6 space-y-4">
+            <h3 class="text-xs font-black uppercase tracking-wider text-amber-gold m-0 flex items-center gap-2">
+              🧭 Referencias de Llegada al Restaurante
+            </h3>
+
+            <div class="space-y-3">
+              <div class="info-block flex items-start gap-3 p-3.5 rounded-2xl bg-slate-soft border">
+                <span class="text-xl flex-shrink-0">🏢</span>
+                <div class="space-y-0.5">
+                  <h4 class="text-xs font-black text-slate-900 dark-text-slate-100 m-0">Ubicación Estratégica</h4>
+                  <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                    Nos encontramos en la emblemática Av. El Sol N° 456. Reconocerás fácilmente la fachada por nuestro letrero luminoso iluminado Chifa Fu Lai.
+                  </p>
+                </div>
+              </div>
+
+              <div class="info-block flex items-start gap-3 p-3.5 rounded-2xl bg-slate-soft border">
+                <span class="text-xl flex-shrink-0">🏛️</span>
+                <div class="space-y-0.5">
+                  <h4 class="text-xs font-black text-slate-900 dark-text-slate-100 m-0">Puntos de Referencia Cercanos</h4>
+                  <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                    A pocas cuadras de la Plaza de Armas del Cusco y frente a la zona financiera y cultural de Av. El Sol.
+                  </p>
+                </div>
+              </div>
+
+              <div class="info-block flex items-start gap-3 p-3.5 rounded-2xl bg-slate-soft border">
+                <span class="text-xl flex-shrink-0">🛵</span>
+                <div class="space-y-0.5">
+                  <h4 class="text-xs font-black text-slate-900 dark-text-slate-100 m-0">Estacionamiento y Recojo Rápido</h4>
+                  <p class="text-micro text-slate-500 m-0 leading-relaxed">
+                    Zona accesible para detención rápida de vehículos y motos de delivery en las inmediaciones.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Horario de Atención y Servicios -->
+          <div class="grid grid-cols-1 sm-grid-cols-2 gap-4">
+            
+            <!-- Bloque de Horarios -->
+            <div class="glass-card rounded-3xl p-5 space-y-3 border-l-4 border-l-amber">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">⏰</span>
+                <div>
+                  <h4 class="text-xs font-black uppercase m-0">Horario de Atención</h4>
+                  <p class="text-micro text-slate-500 m-0">Abierto los 7 días de la semana</p>
+                </div>
+              </div>
+              <div class="p-3 rounded-2xl bg-amber-soft text-slate-900 dark-text-slate-100 space-y-1">
+                <div class="flex justify-between text-xs font-bold">
+                  <span>Lunes a Domingo:</span>
+                  <span class="text-crimson dark-text-amber">11:00 AM – 10:00 PM</span>
+                </div>
+                <p class="text-micro text-slate-500 m-0 pt-1 border-t border-amber-trans">
+                  💡 <strong>Tip Fu Lai:</strong> Durante el almuerzo o cena en horas punta (1:00 PM - 3:00 PM / 7:30 PM - 9:00 PM), haz tu pedido por WhatsApp para agilizar tu pedido.
+                </p>
+              </div>
+            </div>
+
+            <!-- Bloque de Comodidades del Local -->
+            <div class="glass-card rounded-3xl p-5 space-y-3 border-l-4 border-l-crimson">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">🍽️</span>
+                <div>
+                  <h4 class="text-xs font-black uppercase m-0">Servicios del Local</h4>
+                  <p class="text-micro text-slate-500 m-0">Pensado para tu máxima comodidad</p>
+                </div>
+              </div>
+              <ul class="space-y-1.5 text-xs text-slate-600 dark-text-slate-300 list-none p-0 m-0">
+                <li class="flex items-center gap-2">
+                  <span class="text-emerald-600">✓</span> Salón acogedor y climatizado.
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-emerald-600">✓</span> Empaque térmico hermético para llevar (+S/. 1.00).
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-emerald-600">✓</span> Aceptamos Yape, Plin y Efectivo en caja (Titular: David Reyes).
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-emerald-600">✓</span> Wi-Fi de alta velocidad para clientes.
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- MÓDULO 7: CENTRO DE AYUDA Y PREGUNTAS FRECUENTES (FAQ)          -->
+        <!-- -------------------------------------------------------------- -->
+        <section id="sec-faq" class="spa-section hidden space-y-5" role="tabpanel" aria-labelledby="tab-btn-sec-faq">
+          
+          <div class="text-center space-y-1">
+            <span class="badge-chifa-glow">Centro de Ayuda</span>
+            <h2 class="text-lg font-black text-amber-gold m-0 mt-1">Preguntas Frecuentes</h2>
+            <p class="text-xs text-slate-500 m-0">Todo lo que necesitas saber sobre Chifa Fu Lai</p>
+          </div>
+
+          <div class="space-y-4">
+
+            <!-- Grupo FAQ 1: Pedidos y Envíos -->
+            <div class="space-y-2">
+              <h3 class="text-micro font-black uppercase tracking-wider text-amber-gold m-0 pl-1">
+                📦 Pedidos, Envases y Delivery
+              </h3>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Cuál es el costo del envase para llevar?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  El envase térmico sellado para llevar tiene un costo adicional de <strong>S/. 1.00 por plato principal o combo</strong>. Para consumo en nuestro salón en Av. El Sol 456, el costo de vajilla es <strong>S/. 0.00</strong>.
+                </div>
+              </div>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Hacen delivery en la ciudad del Cusco?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  ¡Sí! Realizamos envíos a domicilio en Centro Histórico, Wanchaq, San Sebastián y zonas aledañas. Al enviar tu pedido por WhatsApp te cotizamos el envío exacto.
+                </div>
+              </div>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Puedo programar mi pedido para recojo?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  Sí. Puedes enviar tu carrito con anticipación indicando tu hora estimada de llegada para evitar esperas y recogerlo recién salteado.
+                </div>
+              </div>
+            </div>
+
+            <!-- Grupo FAQ 2: Pagos y Titular -->
+            <div class="space-y-2">
+              <h3 class="text-micro font-black uppercase tracking-wider text-amber-gold m-0 pl-1">
+                💳 Métodos de Pago y Titular
+              </h3>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿A qué nombre figuran las cuentas de Yape y Plin?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  Todas nuestras transferencias por Yape y Plin se realizan al número <strong>+51 900 390 458</strong> a nombre del titular <strong>David Reyes</strong>.
+                </div>
+              </div>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Aceptan efectivo o tarjetas en el local?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  Aceptamos pago en <strong>Efectivo, Yape y Plin</strong> tanto en caja como en pedidos virtuales.
+                </div>
+              </div>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Cómo utilizo los cupones de descuento?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  Ingresa a la sección "Cupones", copia códigos como <code>FULAI10</code> o <code>FULAIVIP</code> y pégalos en la casilla del carrito antes de enviar tu orden a WhatsApp.
+                </div>
+              </div>
+            </div>
+
+            <!-- Grupo FAQ 3: Preparación y Cocina -->
+            <div class="space-y-2">
+              <h3 class="text-micro font-black uppercase tracking-wider text-amber-gold m-0 pl-1">
+                🍳 Horarios y Personalización
+              </h3>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Cuál es el horario de atención de Chifa Fu Lai?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  Atendemos de <strong>Lunes a Domingo de 11:00 AM a 10:00 PM</strong> en horario corrido.
+                </div>
+              </div>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Puedo pedir mi plato con notas especiales?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  ¡Claro que sí! Puedes añadir notas como <em>"sin cebolla china", "bajo en sal", "con extra ají"</em> en el formulario del pedido.
+                </div>
+              </div>
+
+              <div class="faq-item glass-card rounded-2xl p-4 cursor-pointer card-hover-effect">
+                <div class="flex items-center justify-between font-bold text-xs">
+                  <span class="text-slate-900 dark-text-slate-100">¿Tienen menú para grupos grandes o eventos?</span>
+                  <span class="faq-arrow text-amber">▼</span>
+                </div>
+                <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
+                  Utiliza la pestaña <strong>"Banquetes"</strong> para calcular sugerencias personalizadas de 2 a 40 personas con precios especiales.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Soporte Directo WhatsApp -->
+          <div class="glass-card rounded-3xl p-5 border-2 border-amber-trans text-center space-y-3 bg-amber-soft">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-crimson text-2xl flex items-center justify-center text-white">
+              💬
+            </div>
+            <div>
+              <h3 class="text-xs font-black text-slate-900 dark-text-slate-100 m-0">¿Tienes alguna otra consulta?</h3>
+              <p class="text-micro text-slate-500 m-0 mt-0.5">Escríbenos directamente a nuestra atención al cliente.</p>
+            </div>
+            <a href="https://wa.me/51916153738?text=Hola,%20tengo%20una%20consulta%20sobre%20Chifa%20Fu%20Lai" target="_blank" rel="noopener noreferrer" class="btn-emerald-wide inline-flex items-center justify-center gap-2 text-decoration-none">
+              📱 Consultar por WhatsApp (+51 900 390 458)
+            </a>
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- ================================================================ -->
+      <!-- PANEL LATERAL FIJO: RESUMEN DE CARRITO Y CHECKOUT (DESKTOP)       -->
+      <!-- ================================================================ -->
+      <aside class="hidden lg-block lg-col-span-4 sticky-aside space-y-4">
+        <div class="glass-card rounded-3xl p-5 shadow-xl border-2 border-amber-trans space-y-4">
+          
+          <div class="flex items-center justify-between pb-3 border-b">
+            <div class="flex items-center gap-2">
+              <span>🧾</span>
+              <h3 class="text-sm font-black uppercase tracking-wider m-0">Tu Pedido Fu Lai</h3>
+            </div>
+            <span id="desktop-sidebar-count" class="badge-count">0 items</span>
+          </div>
+
+          <!-- Selector de Modalidad (Desktop) -->
+          <div class="space-y-1">
+            <label class="font-bold uppercase text-micro text-slate-500">Modalidad de Entrega:</label>
+            <div class="grid grid-cols-2 gap-2">
+              <label id="dt-opt-sala-label" class="service-opt-label active">
+                <input type="radio" name="dt-service-type" value="sala" checked class="sr-only" />
+                <span class="text-base">🍽️</span>
+                <span class="font-bold text-xs mt-0-5">En Sala</span>
+                <span class="text-micro text-emerald font-bold">Envase S/. 0.00</span>
+              </label>
+
+              <label id="dt-opt-llevar-label" class="service-opt-label">
+                <input type="radio" name="dt-service-type" value="llevar" class="sr-only" />
+                <span class="text-base">🥡</span>
+                <span class="font-bold text-xs mt-0-5">Para Llevar</span>
+                <span class="text-micro text-amber font-bold">+S/. 1.00 p/plato</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Lista de Platos en Carrito (Desktop) -->
+          <div id="desktop-sidebar-items-list" class="space-y-2 max-h-52 overflow-y-auto no-scrollbar"></div>
+
+          <!-- Datos del Cliente (Desktop) -->
+          <div class="space-y-2 bg-slate-soft p-3 rounded-2xl border">
+            <label for="dt-cust-name" class="sr-only">Tu Nombre</label>
+            <input type="text" id="dt-cust-name" placeholder="Tu Nombre *" class="input-styled text-xs" aria-label="Nombre del cliente" />
+            <label for="dt-cust-notes" class="sr-only">Notas para la cocina</label>
+            <input type="text" id="dt-cust-notes" placeholder="Notas (ej. sin cebolla china)" class="input-styled text-xs" aria-label="Notas para la cocina" />
+          </div>
+
+          <!-- Método de Pago (Desktop) -->
+          <div class="space-y-2">
+            <label class="font-bold uppercase text-micro text-slate-500">Método de Pago:</label>
+            <div class="grid grid-cols-3 gap-1-5">
+              <label id="dt-pay-yape-label" class="pay-opt-label active-yape">
+                <input type="radio" name="dt-pay-method" value="yape" checked class="sr-only" /> YAPE
+              </label>
+              <label id="dt-pay-plin-label" class="pay-opt-label">
+                <input type="radio" name="dt-pay-method" value="plin" class="sr-only" /> PLIN
+              </label>
+              <label id="dt-pay-efectivo-label" class="pay-opt-label">
+                <input type="radio" name="dt-pay-method" value="efectivo" class="sr-only" /> EFECTIVO
+              </label>
+            </div>
+
+            <div id="dt-qr-container" class="qr-box p-3 rounded-2xl text-center space-y-1-5">
+              <p class="text-micro font-semibold text-purple-200 m-0">Yapea o Plinea al número oficial:</p>
+              <div class="qr-code-wrap">
+                <div class="text-3xl">📱</div>
+                <span class="text-micro font-black tracking-wider text-slate-900">900 390 458</span>
+              </div>
+              <p class="text-micro text-purple-200 m-0 font-bold">Titular: David Reyes</p>
+              <button type="button" class="btn-copy-yape btn-copy-yape-trigger cursor-pointer">📋 Copiar 916153738</button>
+            </div>
+          </div>
+
+          <!-- Input de Cupón de Descuento (Desktop) -->
+          <div class="space-y-1-5">
+            <label for="dt-coupon-input" class="font-bold uppercase text-micro text-slate-500 block">¿Tienes un cupón?</label>
+            <div class="flex gap-2">
+              <input type="text" id="dt-coupon-input" placeholder="Ej. FULAI10" class="input-styled text-xs uppercase" aria-label="Código de cupón" />
+              <button type="button" id="dt-apply-coupon-btn" class="btn-primary-sm cursor-pointer flex-shrink-0">Aplicar</button>
+            </div>
+            <p id="dt-coupon-msg" class="text-micro font-bold hidden m-0"></p>
+          </div>
+
+          <!-- Desglose de Totales (Desktop) -->
+          <div class="p-3 rounded-2xl bg-slate-soft space-y-1 text-xs border">
+            <div class="flex justify-between text-slate-500">
+              <span>Subtotal:</span>
+              <span id="dt-breakdown-subtotal" class="font-bold">S/. 0.00</span>
+            </div>
+            <div id="dt-discount-row" class="flex justify-between text-emerald-600 hidden font-bold">
+              <span>Descuento:</span>
+              <span id="dt-breakdown-discount">-S/. 0.00</span>
+            </div>
+            <div class="flex justify-between text-amber">
+              <span>Envases p/llevar:</span>
+              <span id="dt-breakdown-envase" class="font-bold">S/. 0.00</span>
+            </div>
+            <div class="flex justify-between font-black text-sm pt-1 border-t">
+              <span>TOTAL:</span>
+              <span id="dt-breakdown-total" class="text-base text-crimson dark-text-amber">S/. 0.00</span>
+            </div>
+          </div>
+
+          <!-- Botón de Envío por WhatsApp (Desktop) -->
+          <button id="send-whatsapp-dt-btn" class="btn-whatsapp-wide cursor-pointer">
+            💬 Enviar Pedido a WhatsApp
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ==================================================================== -->
+  <!-- PIE DE PÁGINA PRINCIPAL (HTML5 SEMÁNTICO Y PURO)                      -->
+  <!-- ==================================================================== -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      
+      <!-- MATRIZ PRINCIPAL DE 4 COLUMNAS -->
+      <div class="footer-grid">
+        
+        <!-- COLUMNA 1: BRANDING & IDENTIDAD -->
+        <div class="footer-col">
+          <div class="footer-brand-header">
+            <div class="brand-logo-box">
+              <svg class="brand-flame-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8.5 8.5C8 6.5 9 5 10 3.5C11 5 10.5 6.5 10 7.5" stroke="#8B0000" stroke-width="1.8" />
+                <path d="M12 9C11.5 6.5 13 4.5 14.5 3C15.5 5 14.5 7 13.5 8" stroke="#D32F2F" stroke-width="2" />
+                <path d="M15.5 9.5C15 8 16 7 16.5 6" stroke="#8B0000" stroke-width="1.5" />
+                <path d="M3.5 12C3.5 16.5 7.3 20.2 12 20.2C16.7 20.2 20.5 16.5 20.5 12H3.5Z" fill="currentColor" fill-opacity="0.25" />
+                <path d="M3 12H21" stroke-width="2.2" />
+                <path d="M1 11H3M21 11H23" stroke-width="2" />
+              </svg>
+            </div>
+            <div class="footer-brand-title">
+              <h3>CHIFA FU LAI</h3>
+              <span class="badge-chifa-glow">¡Sabor que conquista!</span>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            Sabor Wok Hei 100% Auténtico. Platos taipá salteados al fuego vivo en Av. El Sol 456. Calidad, abundancia y sazón en cada pedido.
+          </p>
+          <div class="footer-brand-location">
+            <span>📍 Av. El Sol 456</span>
+            <span>•</span>
+            <span>Centro Histórico, Cusco</span>
+          </div>
+        </div>
+
+        <!-- COLUMNA 2: NAVEGACIÓN RÁPIDA SPA -->
+        <div class="footer-col">
+          <h4 class="footer-title">Navegación Rápida</h4>
+          <ul class="footer-links-list">
+            <li><button type="button" class="footer-nav-link" data-target="sec-carta">📖 Menú & Catálogo</button></li>
+            <li><button type="button" class="footer-nav-link" data-target="sec-promos">🎟️ Cupones de Descuento</button></li>
+            <li><button type="button" class="footer-nav-link" data-target="sec-sorprendeme">🎲 Asistente ¿Qué Comer?</button></li>
+            <li><button type="button" class="footer-nav-link" data-target="sec-banquetes">📦 Calculadora de Banquetes</button></li>
+            <li><button type="button" class="footer-nav-link" data-target="sec-nosotros">🏮 Nuestra Historia & Pilares</button></li>
+            <li><button type="button" class="footer-nav-link" data-target="sec-ubicacion">🗺️ Ubicación & Mapa</button></li>
+            <li><button type="button" class="footer-nav-link" data-target="sec-faq">❓ Preguntas Frecuentes</button></li>
+          </ul>
+        </div>
+
+        <!-- COLUMNA 3: HORARIOS Y CONTACTO -->
+        <div class="footer-col">
+          <h4 class="footer-title">Atención & Contacto</h4>
+          <div class="footer-contact-info">
+            <div class="contact-item">
+              <span class="contact-icon">⏰</span>
+              <div>
+                <strong>Horario de Atención:</strong>
+                <p>Lunes a Domingo: 11:00 AM - 10:00 PM</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📞</span>
+              <div>
+                <strong>Central de Pedidos:</strong>
+                <button type="button" id="footer-copy-phone" class="phone-copy-btn">
+                  +51 900 390 458 (Edwin David T.)
+                </button>
+              </div>
+            </div>
+          </div>
+          <a href="https://wa.me/51916153738?text=Hola,%20quisiera%20consultar%20sobre%20el%20men%C3%BA%20de%20Chifa%20Fu%20Lai" target="_blank" rel="noopener noreferrer" class="btn-emerald-link footer-wsp-btn">
+            💬 Atención Rápida WhatsApp
+          </a>
+        </div>
+
+        <!-- COLUMNA 4: REDES SOCIALES Y MÉTODOS DE PAGO -->
+        <div class="footer-col">
+          <h4 class="footer-title">Comunidad & Pagos</h4>
+          <div class="footer-section-group">
+            <span class="group-subtitle">Síguenos en redes:</span>
+            <div class="footer-social-links">
+              <a href="https://www.tiktok.com/@chifa.fulai" target="_blank" rel="noopener noreferrer" class="footer-social-btn btn-tiktok" aria-label="TikTok">
+                <svg class="social-svg" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.58a7.07 7.07 0 0 0-4.43 1.48 7.07 7.07 0 0 0-2.6 5.56 7.07 7.07 0 0 0 7.07 7.07 7.07 7.07 0 0 0 7.07-7.07V9.42a7.68 7.68 0 0 0 4.67 1.54V7.51a4.8 4.8 0 0 1-1.67-.82z"/></svg>
+                <span>TikTok</span>
+              </a>
+              <a href="https://www.youtube.com/@chifa.fulai" target="_blank" rel="noopener noreferrer" class="footer-social-btn btn-youtube" aria-label="YouTube">
+                <svg class="social-svg" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>YouTube</span>
+              </a>
+            </div>
+          </div>
+          <div class="footer-section-group">
+            <span class="group-subtitle">Aceptamos:</span>
+            <div class="payment-badges-list">
+              <span class="payment-badge badge-yape">📱 Yape</span>
+              <span class="payment-badge badge-plin">📲 Plin</span>
+              <span class="payment-badge badge-efectivo">💵 Efectivo</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SUB-FOOTER: DERECHOS DE AUTOR Y NOTAS LEGALES -->
+      <div class="sub-footer">
+        <p class="copyright-text">
+          © 2026 <strong>Chifa Fu Lai</strong>. Todos los derechos reservados. Av. El Sol 456, Cusco.
+        </p>
+        <div class="footer-extra-info">
+          <span>🥡 Empaque sellado +S/. 1.00</span>
+          <span>•</span>
+          <span>🛵 Delivery Cusco</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================================================================== -->
+  <!-- BARRA FLOTANTE Y MODAL DE CHECKOUT (MÓVIL)                            -->
+  <!-- ==================================================================== -->
+  <div id="sticky-cart-bar" class="lg-hidden fixed-bottom-bar transform-down opacity-0 pointer-events-none">
+    <div class="max-w-md mx-auto bg-cart-pill text-white dark-text-slate-950 rounded-2xl p-3 shadow-2xl flex items-center justify-between border-amber-trans">
+      <div class="flex items-center gap-3 pl-2">
+        <div class="relative">
+          <div class="w-10 h-10 rounded-xl bg-crimson flex items-center justify-center font-bold text-lg">🛒</div>
+          <span id="cart-pill-count" class="badge-cart-pill">0</span>
+        </div>
+        <div>
+          <span class="text-micro uppercase font-bold opacity-80 block">Total acumulado</span>
+          <span id="cart-pill-total" class="text-sm font-extrabold">S/. 0.00</span>
+        </div>
+      </div>
+      <button id="open-checkout-modal-btn" class="btn-cart-modal cursor-pointer">
+        <span>Ver Pedido</span> →
+      </button>
+    </div>
+  </div>
+
+  <div id="checkout-modal" class="lg-hidden fixed-modal opacity-0 pointer-events-none" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+    <div class="modal-sheet rounded-t-3xl max-h-92vh flex flex-col shadow-2xl overflow-hidden z-10">
+      
+      <!-- Encabezado Modal Móvil -->
+      <div class="p-4 border-b flex items-center justify-between flex-shrink-0 bg-slate-soft">
+        <div class="flex items-center gap-2">
+          <span>🧾</span>
+          <h3 id="modal-title" class="text-xs font-black uppercase tracking-wider m-0">Resumen de Tu Pedido Fu Lai</h3>
+        </div>
+        <button id="close-checkout-modal-btn" aria-label="Cerrar modal" class="btn-close-modal cursor-pointer">✕</button>
+      </div>
+
+      <!-- Cuerpo del Modal Scrollable -->
+      <div class="p-4 overflow-y-auto space-y-4 text-xs no-scrollbar flex-1">
+        
+        <!-- Modalidad de Entrega (Móvil) -->
+        <div class="space-y-1">
+          <label class="font-bold uppercase text-micro text-slate-500">Modalidad de Entrega:</label>
+          <div class="grid grid-cols-2 gap-2">
+            <label id="mb-opt-sala-label" class="service-opt-label active">
+              <input type="radio" name="mb-service-type" value="sala" checked class="sr-only" />
+              <span class="text-lg">🍽️</span>
+              <span class="font-bold mt-0-5">Comer en Sala</span>
+              <span class="text-micro text-emerald font-bold">Envase S/. 0.00</span>
+            </label>
+
+            <label id="mb-opt-llevar-label" class="service-opt-label">
+              <input type="radio" name="mb-service-type" value="llevar" class="sr-only" />
+              <span class="text-lg">🥡</span>
+              <span class="font-bold mt-0-5">Para Llevar / Recojo</span>
+              <span class="text-micro text-amber font-bold">+S/. 1.00 por plato</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Lista de Items en Móvil -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center text-micro font-extrabold uppercase text-slate-400">
+            <span>Platos Seleccionados</span>
+            <span id="modal-item-count">0 items</span>
+          </div>
+          <div id="modal-cart-items-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+        </div>
+
+        <!-- Formulario de Datos Móvil -->
+        <div class="space-y-2 bg-slate-soft p-3 rounded-2xl border">
+          <label class="font-bold uppercase text-micro text-slate-500">Datos del Cliente:</label>
+          <label for="mb-cust-name" class="sr-only">Tu Nombre</label>
+          <input type="text" id="mb-cust-name" placeholder="Tu Nombre *" class="input-styled text-xs" aria-label="Nombre del cliente" />
+          <label for="mb-cust-notes" class="sr-only">Notas especiales para la cocina</label>
+          <input type="text" id="mb-cust-notes" placeholder="Notas especiales (ej. sin cebolla china)" class="input-styled text-xs" aria-label="Notas para la cocina" />
+        </div>
+
+        <!-- Selector de Métodos de Pago Móvil -->
+        <div class="space-y-2">
+          <label class="font-bold uppercase text-micro text-slate-500">Método de Pago:</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label id="mb-pay-yape-label" class="pay-opt-label active-yape">
+              <input type="radio" name="mb-pay-method" value="yape" checked class="sr-only" /> YAPE
+            </label>
+            <label id="mb-pay-plin-label" class="pay-opt-label">
+              <input type="radio" name="mb-pay-method" value="plin" class="sr-only" /> PLIN
+            </label>
+            <label id="mb-pay-efectivo-label" class="pay-opt-label">
+              <input type="radio" name="mb-pay-method" value="efectivo" class="sr-only" /> EFECTIVO
+            </label>
+          </div>
+
+          <div id="mb-qr-container" class="qr-box p-3-5 rounded-2xl text-center space-y-2">
+            <p class="text-xs text-purple-200 font-semibold m-0">Escanea el QR o yapea al número oficial:</p>
+            <div class="qr-code-wrap">
+              <div class="text-4xl">📱</div>
+              <span class="text-micro font-black tracking-wider text-slate-900">900 390 458</span>
+            </div>
+            <p class="text-micro text-purple-200 m-0 font-bold">Titular: David Reyes</p>
+            <button type="button" class="btn-copy-yape btn-copy-yape-trigger cursor-pointer">📋 Copiar Número Yape (916153738)</button>
+          </div>
+        </div>
+
+        <!-- Cupones en Móvil -->
+        <div class="space-y-1-5">
+          <label for="mb-coupon-input" class="font-bold uppercase text-micro text-slate-500 block">¿Tienes un cupón?</label>
+          <div class="flex gap-2">
+            <input type="text" id="mb-coupon-input" placeholder="Ej. FULAI10" class="input-styled text-xs uppercase" aria-label="Código de cupón" />
+            <button type="button" id="mb-apply-coupon-btn" class="btn-primary-sm cursor-pointer flex-shrink-0">Aplicar</button>
+          </div>
+          <p id="mb-coupon-msg" class="text-micro font-bold hidden m-0"></p>
+        </div>
+      </div>
+
+      <!-- Pie del Modal Móvil con Totales y Envío -->
+      <div class="p-4 border-t bg-sheet-footer flex-shrink-0 space-y-3">
+        <div class="p-3 rounded-2xl bg-slate-soft space-y-1-5 text-xs border">
+          <div class="flex justify-between text-slate-500">
+            <span>Subtotal de productos:</span>
+            <span id="breakdown-subtotal" class="font-bold">S/. 0.00</span>
+          </div>
+          <div id="mb-discount-row" class="flex justify-between text-emerald-600 hidden font-bold">
+            <span>Descuento aplicado:</span>
+            <span id="breakdown-discount">-S/. 0.00</span>
+          </div>
+          <div class="flex justify-between text-amber">
+            <span>Recargo envase para llevar:</span>
+            <span id="breakdown-envase" class="font-bold">S/. 0.00</span>
+          </div>
+          <div class="flex justify-between font-black text-sm pt-1-5 border-t">
+            <span>TOTAL GENERAL:</span>
+            <span id="breakdown-total" class="text-base text-crimson dark-text-amber">S/. 0.00</span>
+          </div>
+        </div>
+
+        <button id="send-whatsapp-mb-btn" class="btn-whatsapp-wide cursor-pointer">
+          💬 Enviar Pedido a WhatsApp
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- COMPONENTES FLOTANTES (TOAST Y REDES SOCIALES)                       -->
+  <!-- ==================================================================== -->
+  <div id="toast" class="toast-box transform-toast opacity-0 pointer-events-none" role="status" aria-live="polite">
+    <div class="toast-content flex items-center gap-2-5 text-xs font-bold">
+      <span class="text-amber">✅</span>
+      <span id="toast-msg">Acción realizada con éxito</span>
+    </div>
+  </div>
+
+  <div id="floating-actions" class="floating-actions-container">
+    
+    <!-- Botón Flotante 1: TikTok -->
+    <a href="https://www.tiktok.com/@chifa.fulai" target="_blank" rel="noopener noreferrer" class="floating-btn btn-tiktok" aria-label="Síguenos en TikTok">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.58a7.07 7.07 0 0 0-4.43 1.48 7.07 7.07 0 0 0-2.6 5.56 7.07 7.07 0 0 0 7.07 7.07 7.07 7.07 0 0 0 7.07-7.07V9.42a7.68 7.68 0 0 0 4.67 1.54V7.51a4.8 4.8 0 0 1-1.67-.82z"/>
+      </svg>
+    </a>
+
+    <!-- Botón Flotante 2: YouTube -->
+    <a href="https://www.youtube.com/@chifa.fulai" target="_blank" rel="noopener noreferrer" class="floating-btn btn-youtube" aria-label="Canal de YouTube">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+    </a>
+
+    <!-- Botón Flotante 3: Volver Arriba -->
+    <button id="back-to-top-btn" class="floating-btn btn-back-top hidden" aria-label="Volver arriba">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- LÓGICA JAVASCRIPT PRINCIPAL -->
+  <script src="script/script.js"></script>
+</body>
+</html>
