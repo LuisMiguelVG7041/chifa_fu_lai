@@ -224,6 +224,7 @@ html.dark body {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -267,7 +268,7 @@ html.dark .border-l-r { border-left-color: var(--slate-800); border-right-color:
 .bg-crimson-soft { background-color: rgba(217, 37, 52, 0.12); }
 .bg-amber-soft { background-color: rgba(245, 158, 11, 0.12); }
 .bg-amber-trans { background-color: rgba(245, 158, 11, 0.18); }
-.bg-gradient-gold { background: linear-gradient(135deg, #FBBF24, #F59E0B); }
+.bg-gradient-gold { background: linear-gradient(135deg, #fb2424, #F59E0B); }
 .bg-black-25 { background-color: rgba(0, 0, 0, 0.25); }
 .bg-slate-50 { background-color: var(--slate-50); }
 .bg-slate-100 { background-color: var(--slate-100); }
