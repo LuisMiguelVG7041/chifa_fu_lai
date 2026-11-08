@@ -2,7 +2,7 @@
    PROYECTO: CHIFA FU LAI - CARTA DIGITAL & SISTEMA DE PEDIDOS
    ARCHIVO: script.js (Lógica JavaScript ES6+ - SPA)
    VERSIÓN: 2.1.0 (Edición Chifa Fu Lai - Recomendaciones & Imágenes)
-   AUTOR: LUIS MIGUEL VERDE GUILLEN - Equipo de Desarrollo Web
+   AUTOR: Chifa Fu Lai - Equipo de Desarrollo Web
    UBICACIÓN: Inglaterra Mz. O Lt. 8, Cusco, Perú
    ==================================================================== */
 
@@ -41,16 +41,79 @@ const SECTION_TITLES = {
 
 const PRODUCTS = [
   /* RECOMENDACIONES (TARJETAS CON IMAGEN) */
-  { id: "rec-a", name: "Chaufa c/ Lomo Saltado + Tortilla de Pollo", category: "Recomendaciones", price: 16.00, desc: "Chaufa especial servido con jugoso Lomo Saltado y Tortilla de Pollo.", image: "img/combos/combo-a.svg" },
-  { id: "rec-b", name: "Chaufa c/ Tallarín Saltado de Pollo + Tortilla", category: "Recomendaciones", price: 16.00, desc: "Arroz chaufa, tallarín saltado de pollo al wok y tortilla de pollo.", image: "img/combos/combo-b.svg" },
-  { id: "rec-c", name: "Chaufa + Milanesa de Pollo + Huevo + Plátano", category: "Recomendaciones", price: 16.00, desc: "Chaufa abundante con milanesa crujiente, huevo frito y plátano.", image: "img/combos/combo-c.svg" },
-  { id: "rec-d", name: "Chaufa + Papas Fritas + Tortilla de Pollo", category: "Recomendaciones", price: 14.00, desc: "Chaufa con papas fritas doraditas y tortilla de pollo jugosa.", image: "img/combos/combo-d.svg" },
-  { id: "rec-e", name: "Chaufa con Pollo + Bisteck Montado", category: "Recomendaciones", price: 15.00, desc: "Chaufa salteado con pollo y bisteck a la plancha montado.", image: "img/combos/combo-e.svg" },
-  { id: "rec-f", name: "Chaufa + Papas Fritas + Tortilla de Verduras y Pollo", category: "Recomendaciones", price: 15.00, desc: "Chaufa, papitas fritas crujientes y tortilla con verduras y pollo.", image: "img/combos/combo-f.svg" },
-  { id: "rec-g", name: "Chaufa + Filete de Pollo Montado + Encebollado", category: "Recomendaciones", price: 16.00, desc: "Chaufa acompañado de filete de pollo montado con salteado de cebollas.", image: "img/combos/combo-g.svg" },
-  { id: "rec-h", name: "Chaufa + Milanesa de Carne + Huevo + Plátano", category: "Recomendaciones", price: 16.00, desc: "Chaufa con milanesa de carne dorada, huevo frito y plátano.", image: "img/combos/combo-h.svg" },
-  { id: "rec-i", name: "Chaufa + Papas Fritas + Bisteck a lo Pobre", category: "Recomendaciones", price: 16.00, desc: "Chaufa con papas fritas, bisteck, plátanos fritos y huevo montado.", image: "img/combos/combo-i.svg" },
-
+{ 
+    id: "rec-a", 
+    name: "Sopa Wantán", 
+    category: "Recomendaciones", 
+    price: 8.00, 
+    desc: "Reconfortante caldo claro de pollo salteado con kion y aceite de ajonjolí, servido con wantanes artesanales rellenos, láminas de pollo, pac choy y cebollita china.", 
+    image: "img/combos/combo-f.svg" 
+  },
+  { 
+    id: "rec-b", 
+    name: "Chaufa c/ Tallarín Saltado de Pollo y Carne", 
+    category: "Recomendaciones", 
+    price: 18.00, 
+    desc: "Combinado especial estilo mitad y mitad: arroz chaufa granado y tallarín saltado al wok con trozos de pollo, carne de res y verduras frescas en salsa de ostión.", 
+    image: "img/combos/combo-b.svg" 
+  },
+  { 
+    id: "rec-c", 
+    name: "Tallarín Saltado de Carne", 
+    category: "Recomendaciones", 
+    price: 14.00, 
+    desc: "Fideos chinos salteados al wok a fuego vivo con jugosas tiras de carne de res, cebolla morada, tomate, pimiento, holantao y col china en salsa de soya y ostión.", 
+    image: "img/combos/combo-c.svg" 
+  },
+  { 
+    id: "rec-d", 
+    name: "Chaufa + Kam Lu Wantán", 
+    category: "Recomendaciones", 
+    price: 20.00, 
+    desc: "Arroz chaufa salteado de la casa acompañado de wantanes fritos crujientes, pollo, cerdo char siu, langostinos y piña bañados en salsa agridulce de tamarindo.", 
+    image: "img/combos/combo-d.svg" 
+  },
+  { 
+    id: "rec-e", 
+    name: "Chaufa + Pollo con durazno", 
+    category: "Recomendaciones", 
+    price: 15.00, 
+    desc: "Arroz chaufa al wok servido con bocados de pollo dorados bañados en una fina salsa agridulce de tamarindo acompañada de gajos de durazno y vegetales.", 
+    image: "img/combos/combo-e.svg" 
+  },
+  { 
+    id: "rec-f", 
+    name: "Chaufa con Tortilla Mixta (Pollo y Carne)", 
+    category: "Recomendaciones", 
+    price: 17.00, 
+    desc: "Arroz chaufa de la casa coronado con una jugosa y esponjosa tortilla de huevo preparada al wok, rellena de trozos de pollo, carne de res y cebollita china.", 
+    image: "img/combos/combo-a.svg" 
+  },
+  { 
+    id: "rec-g", 
+    name: "Aeropuerto Mixto (Pollo y Carne)", 
+    category: "Recomendaciones", 
+    price: 16.00, 
+    desc: "Abundante fusión de arroz chaufa y fideos chinos salteados al wok a alta temperatura con trozos de pollo, carne de res, brotes de soya (frijolito de china) y huevo.", 
+    image: "img/combos/combo-g.svg" 
+  },
+  { 
+    id: "rec-h", 
+    name: "Chaufa con Lomo Saltado", 
+    category: "Recomendaciones", 
+    price: 14.00, 
+    desc: "Arroz chaufa frito al wok acompañado de un criollo Lomo Saltado de res con cebolla, tomate, ají amarillo, papas fritas y su jugoso jugo salteado.", 
+    image: "img/combos/combo-h.svg" 
+  },
+  { 
+    id: "rec-i", 
+    name: "Chaufa con Milanesa de Pollo", 
+    category: "Recomendaciones", 
+    price: 14.00, 
+    desc: "Porción abundante de arroz chaufa tradicional tostado al wok, acompañado de un filete de pechuga de pollo empanizada (milanesa) crujiente y dorada.", 
+    image: "img/combos/combo-i.svg" 
+  },
+  
   /* SOPAS */
   { id: "sop-1", name: "Sopa de Pollo", category: "Sopas", price: 11.00, desc: "Sopa reconfortante con trozos de pollo y fideos." },
   { id: "sop-2", name: "Sopa Wantán", category: "Sopas", price: 11.00, desc: "Caldo de la casa con wantanes rellenos y verduras." },
