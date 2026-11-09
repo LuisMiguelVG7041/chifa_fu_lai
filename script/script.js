@@ -45,7 +45,7 @@ const PRODUCTS = [
     id: "rec-a", 
     name: "Sopa Wantán", 
     category: "Recomendaciones", 
-    price: 8.00, 
+    price: 11.00, 
     desc: "Reconfortante caldo claro de pollo salteado con kion y aceite de ajonjolí, servido con wantanes artesanales rellenos, láminas de pollo, pac choy y cebollita china.", 
     image: "img/combos/combo-f.svg" 
   },
@@ -53,7 +53,7 @@ const PRODUCTS = [
     id: "rec-b", 
     name: "Chaufa c/ Tallarín Saltado de Pollo y Carne", 
     category: "Recomendaciones", 
-    price: 18.00, 
+    price: 14.00, 
     desc: "Combinado especial estilo mitad y mitad: arroz chaufa granado y tallarín saltado al wok con trozos de pollo, carne de res y verduras frescas en salsa de ostión.", 
     image: "img/combos/combo-b.svg" 
   },
@@ -61,7 +61,7 @@ const PRODUCTS = [
     id: "rec-c", 
     name: "Tallarín Saltado de Carne", 
     category: "Recomendaciones", 
-    price: 14.00, 
+    price: 12.00, 
     desc: "Fideos chinos salteados al wok a fuego vivo con jugosas tiras de carne de res, cebolla morada, tomate, pimiento, holantao y col china en salsa de soya y ostión.", 
     image: "img/combos/combo-c.svg" 
   },
@@ -173,8 +173,8 @@ const PRODUCTS = [
   { id: "sal-12", name: "Combinado de Pollo y Chancho", category: "Platos Salados", price: 18.00, desc: "Arroz chaufa y tallarín saltado de pollo y chancho al wok." },
   { id: "sal-13", name: "Combinado de Pollo y Carne", category: "Platos Salados", price: 18.00, desc: "Arroz chaufa y tallarín saltado de pollo y carne al wok." },
   { id: "sal-14", name: "Combinado Especial 'Taypa'", category: "Platos Salados", price: 21.00, badge: "Taipá ⭐", desc: "Chaufa y tallarín con pollo, carne, chancho, champiñones y langostinos." },
-  { id: "sal-15", name: "Tallarín de Pollo", category: "Platos Salados", price: 14.00, desc: "Fideos chinos saltados al wok con pollo y verduras." },
-  { id: "sal-16", name: "Tallarín de Carne", category: "Platos Salados", price: 14.00, desc: "Fideos chinos saltados al wok con carne y verduras." },
+  { id: "sal-15", name: "Tallarín de Pollo", category: "Platos Salados", price: 12.00, desc: "Fideos chinos saltados al wok con pollo y verduras." },
+  { id: "sal-16", name: "Tallarín de Carne", category: "Platos Salados", price: 12.00, desc: "Fideos chinos saltados al wok con carne y verduras." },
   { id: "sal-17", name: "Tallarín de Chancho", category: "Platos Salados", price: 16.00, desc: "Fideos chinos saltados al wok con chancho y verduras." },
   { id: "sal-18", name: "Tallarín Taypa", category: "Platos Salados", price: 20.00, badge: "Taypa ⭐", desc: "Fideos saltados con pollo, res, chancho, langostinos, huevos de codorniz y champiñones." },
 
