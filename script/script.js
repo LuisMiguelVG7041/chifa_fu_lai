@@ -1409,3 +1409,284 @@ function scrollToTop() {
     behavior: 'smooth'
   });
 }
+
+/* ========================================== */
+/* MÓDULO DE INTEGRIDAD Y FIRMA ENCAPSULADA   */
+/* ========================================== */
+(() => {
+  const _k = 73;
+  const d = (...c) => String.fromCodePoint(...c.map((x) => x ^ _k));
+
+  // Datos cifrados con XOR (sin rastro ASCII ni URL en el DOM)
+  const _n = [124, 120, 112, 113, 120, 121, 124, 121, 113, 112, 113];
+  const _b = [5, 0, 29, 29, 5, 12, 105, 4, 8, 0, 2, 16];
+  const _u = [33, 61, 61, 57, 58, 115, 102, 102, 62, 40, 103, 36, 44, 102];
+  const _m1 = [1, 38, 37, 40, 105, 5, 32, 61, 61, 37, 44, 105, 4, 40, 32, 34, 48, 105, 128002, 105, 31, 32, 105, 61, 60, 105, 47, 32, 59, 36, 40, 105, 45, 44, 105, 45, 44, 58, 40, 59, 59, 38, 37, 37, 40, 45, 38, 59, 105, 44, 39, 105, 37, 40, 105, 62, 44, 43, 105, 45, 44, 105, 99];
+  const _m2 = [99, 105, 48, 105, 36, 44, 105, 46, 60, 58, 61, 40, 59, 164, 40, 105, 42, 38, 61, 32, 51, 40, 59, 105, 60, 39, 105, 57, 59, 38, 48, 44, 42, 61, 38, 105, 62, 44, 43, 105, 42, 38, 39, 61, 32, 46, 38, 103];
+
+  const mount = () => {
+    const container =
+      document.querySelector('footer .footer-container') ||
+      document.querySelector('footer');
+    if (!container || container.querySelector('[data-ui-meta="v2"]')) return;
+
+    const host = document.createElement('div');
+    host.setAttribute('data-ui-meta', 'v2');
+    const shadow = host.attachShadow({ mode: 'closed' });
+
+    const style = document.createElement('style');
+    style.textContent = `
+      :host {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 0.85rem;
+        padding-top: 0.25rem;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .s-box {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45em;
+        min-width: min(280px, 90vw);
+        min-height: 46px;
+        padding: 0.5rem 1.25rem;
+        border-radius: 9999px;
+        font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: clamp(0.68rem, 2.2vw, 0.8rem);
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        touch-action: manipulation;
+        overflow: hidden;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .s-core {
+        color: #E8FFF1;
+        text-shadow:
+          0 0 6px rgba(0, 255, 102, 0.85),
+          0 0 16px rgba(0, 255, 102, 0.85),
+          0 0 30px rgba(0, 255, 102, 0.35);
+      }
+      .s-tag {
+        color: #00FF66;
+        font-weight: 900;
+        text-shadow:
+          0 0 8px rgba(0, 255, 102, 0.85),
+          0 0 20px rgba(0, 255, 102, 0.35);
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .s-beam {
+        position: absolute;
+        top: 50%;
+        left: -100%;
+        width: 80%;
+        height: 2px;
+        transform: translateY(-50%);
+        background: linear-gradient(90deg, transparent, #00FF66, #E8FFF1, transparent);
+        box-shadow: 0 0 12px #00FF66;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* ENTRADA: Parpadeo de encendido + barrido láser izquierdo -> derecho */
+      .s-box:focus-visible,
+      .s-box.lit {
+        opacity: 1;
+        outline: none;
+        animation: sFlickerIn 0.32s ease-out forwards;
+      }
+      .s-box:focus-visible .s-l,
+      .s-box.lit .s-l {
+        transform: translateX(-4px);
+      }
+      .s-box:focus-visible .s-r,
+      .s-box.lit .s-r {
+        transform: translateX(4px);
+      }
+      .s-box:focus-visible .s-beam,
+      .s-box.lit .s-beam {
+        animation: sSweepIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      /* SALIDA: Apagado eléctrico + barrido láser derecho -> izquierdo */
+      .s-box.out {
+        animation: sPowerOut 0.36s ease-in forwards;
+      }
+      .s-box.out .s-l,
+      .s-box.out .s-r {
+        transform: translateX(0);
+      }
+      .s-box.out .s-beam {
+        animation: sSweepOut 0.34s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      @keyframes sFlickerIn {
+        0% { opacity: 0; filter: brightness(1.8); transform: scale(0.98); }
+        28% { opacity: 0.95; filter: brightness(1.5); }
+        48% { opacity: 0.18; filter: brightness(0.8); }
+        72% { opacity: 1; filter: brightness(1.35); }
+        100% { opacity: 1; filter: brightness(1); transform: scale(1); }
+      }
+      @keyframes sPowerOut {
+        0% { opacity: 1; filter: brightness(1); transform: scale(1); }
+        30% { opacity: 0.28; filter: brightness(0.6); }
+        55% { opacity: 0.85; filter: brightness(1.45); }
+        100% { opacity: 0; filter: brightness(0.2); transform: scale(0.96); }
+      }
+      @keyframes sSweepIn {
+        0% { left: -90%; opacity: 0.95; }
+        70% { opacity: 0.9; }
+        100% { left: 120%; opacity: 0; }
+      }
+      @keyframes sSweepOut {
+        0% { left: 120%; opacity: 0.9; }
+        70% { opacity: 0.85; }
+        100% { left: -90%; opacity: 0; }
+      }
+    `;
+
+    const trigger = document.createElement('span');
+    trigger.className = 's-box';
+    trigger.setAttribute('role', 'link');
+    trigger.setAttribute('tabindex', '0');
+
+    const beam = document.createElement('span');
+    beam.className = 's-beam';
+
+    const leftTag = document.createElement('span');
+    leftTag.className = 's-tag s-l';
+    leftTag.textContent = '<';
+
+    const core = document.createElement('span');
+    core.className = 's-core';
+    core.textContent = d(..._b);
+
+    const rightTag = document.createElement('span');
+    rightTag.className = 's-tag s-r';
+    rightTag.textContent = '/>';
+
+    trigger.append(beam, leftTag, core, rightTag);
+    shadow.append(style, trigger);
+    container.appendChild(host);
+
+    const openContact = () => {
+      const title = (document.title || '').split('-')[0].trim();
+      const origin = title || window.location.hostname || 'un proyecto web';
+      const text = `${d(..._m1)}${origin}${d(..._m2)}`;
+      const url = `${d(..._u)}${d(..._n)}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    ['contextmenu', 'copy', 'cut', 'dragstart'].forEach((evt) => {
+      trigger.addEventListener(evt, (e) => e.preventDefault());
+    });
+
+    const isTouch =
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia('(pointer: coarse)').matches;
+
+    let holdTimer = null;
+    let exitTimer = null;
+    let litAt = 0;
+    let activeInput = isTouch ? 'touch' : 'mouse';
+
+    const playEnter = () => {
+      clearTimeout(holdTimer);
+      clearTimeout(exitTimer);
+      trigger.classList.remove('out', 'lit');
+      void trigger.offsetWidth;
+      trigger.classList.add('lit');
+      litAt = Date.now();
+    };
+
+    const playExit = () => {
+      clearTimeout(holdTimer);
+      trigger.classList.remove('lit', 'out');
+      void trigger.offsetWidth;
+      trigger.classList.add('out');
+      clearTimeout(exitTimer);
+      exitTimer = setTimeout(() => {
+        trigger.classList.remove('out');
+      }, 380);
+    };
+
+    // Entra, permanece 2 segundos (2000 ms) y dispara la salida
+    const flash = (holdMs = 2000) => {
+      playEnter();
+      holdTimer = setTimeout(playExit, holdMs);
+    };
+
+    // PC / Laptop: entrada al pasar el cursor y salida eléctrica al retirarlo
+    trigger.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
+        activeInput = 'mouse';
+        playEnter();
+      }
+    });
+
+    trigger.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
+        playExit();
+      }
+    });
+
+    trigger.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') activeInput = 'touch';
+      else if (e.pointerType === 'mouse' || e.pointerType === 'pen') activeInput = 'mouse';
+    });
+
+    // Clic: en móvil 1er toque enciende 2s y sale / 2do toque abre WhatsApp; en PC abre directo
+    trigger.addEventListener('click', () => {
+      if (activeInput === 'touch') {
+        if (!trigger.classList.contains('lit')) {
+          flash(2000);
+          return;
+        }
+        if (Date.now() - litAt < 320) return;
+      }
+      openContact();
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openContact();
+      }
+    });
+
+    // Celular / Tablet: auto-destello de 2s + salida al llegar al footer
+    if (isTouch && 'IntersectionObserver' in window) {
+      let canFlashOnScroll = true;
+      const obs = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (!entry) return;
+          if (entry.isIntersecting && canFlashOnScroll) {
+            canFlashOnScroll = false;
+            setTimeout(() => flash(1500), 300);
+          } else if (!entry.isIntersecting) {
+            canFlashOnScroll = true;
+          }
+        },
+        { threshold: 0.1 }
+      );
+      obs.observe(host);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount);
+  } else {
+    mount();
+  }
+})();
