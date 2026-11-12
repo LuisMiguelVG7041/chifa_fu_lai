@@ -68,7 +68,7 @@ const PRODUCTS = [
   },
   { 
     id: "rec-b", 
-    name: "Chaufa c/ Tallarín Saltado de Pollo y Carne", 
+    name: "Chaufa c/ Tallarín Saltado de Pollo o Carne", 
     category: "Recomendaciones", 
     price: 14.00, 
     desc: "Combinado especial estilo mitad y mitad: arroz chaufa granado y tallarín saltado al wok con trozos de pollo, carne de res y verduras frescas en salsa de ostión.", 
