@@ -79,7 +79,7 @@ const PRODUCTS = [
     name: "Tallarín Saltado de Carne", 
     category: "Recomendaciones", 
     price: 12.00, 
-    desc: "Fideos chinos salteados al wok a fuego vivo con jugosas tiras de carne de res, cebolla morada, tomate, pimiento, holantao y col china en salsa de soya y ostión.", 
+    desc: "Fideos Espagueti salteados al wok a fuego vivo con jugosas tiras de carne de res, cebolla morada, tomate, pimiento, holantao y col china en salsa de soya y ostión.", 
     image: "img/combos/combo-c.svg" 
   },
   { 
