@@ -97,7 +97,7 @@
       <div class="mt-2-5 sm-hidden flex items-center justify-between text-xs border-t-amber pt-2">
         <div id="status-badge-mobile" class="inline-flex items-center gap-1-5 px-2-5 py-0-5 rounded-full text-xs font-bold bg-amber-trans text-amber-200 border-amber-trans">
           <span id="dot-mobile" class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span id="text-mobile">ABIERTO (11:00 AM - 10:00 PM)</span>
+          <span id="text-mobile">ABIERTO (12:30 AM - 11:00 PM)</span>
         </div>
         <span class="text-xs font-medium text-amber-200">
           📍 Av. La Cultura - Paradero Santa Rosa, Cusco
@@ -232,11 +232,11 @@
 
             <div class="flex items-center justify-between gap-4 p-3.5 rounded-2xl bg-amber-soft border-amber-trans">
               <div class="space-y-1 flex-1">
-                <h3 class="text-sm font-black m-0">Combo A: Chaufa c/ Lomo Saltado + Tortilla</h3>
+                <h3 class="text-sm font-black m-0">PROMOCIÓN: Chaufa c/ Lomo Saltado + Tortilla</h3>
                 <p class="text-xs text-slate-500 m-0">Pide hoy y obtén porción adicional de plátano frito gratis.</p>
                 <div class="mt-2 flex items-center gap-2">
-                  <span class="text-xs text-slate-400 line-through">S/. 17.00</span>
-                  <span class="text-sm font-black text-crimson dark-text-amber">S/. 16.00</span>
+                  <span class="text-xs text-slate-400 line-through">S/. 18.00</span>
+                  <span class="text-sm font-black text-crimson dark-text-amber">S/. 17.00</span>
                 </div>
               </div>
               <button id="promo-add-btn" class="btn-primary-sm cursor-pointer">+ Aprovechar</button>
@@ -262,7 +262,7 @@
               <div class="space-y-1">
                 <span class="coupon-tag text-crimson">Clientes Frecuentes</span>
                 <h4 class="text-xs font-black m-0">FULAIVIP</h4>
-                <p class="text-xs text-slate-500 m-0">Descuento de S/. 3.00 en compras de más de 3 platos</p>
+                <p class="text-xs text-slate-500 m-0">¡Gratis 1 Jarra de Chicha Morada (1 Litro) por compras mayores a S/. 50.00!</p>
               </div>
               <button class="btn-copy-coupon btn-crimson-copy cursor-pointer" data-code="FULAIVIP">📋 Copiar</button>
             </div>
@@ -578,7 +578,7 @@
               <div class="p-3 rounded-2xl bg-amber-soft text-slate-900 dark-text-slate-100 space-y-1">
                 <div class="flex justify-between text-xs font-bold">
                   <span>Lunes a Domingo:</span>
-                  <span class="text-crimson dark-text-amber">11:00 AM – 10:00 PM</span>
+                  <span class="text-crimson dark-text-amber">12:30 AM – 11:00 PM</span>
                 </div>
                 <p class="text-micro text-slate-500 m-0 pt-1 border-t border-amber-trans">
                   💡 <strong>Tip Fu Lai:</strong> Durante horas punta (1:00 PM - 3:00 PM / 7:30 PM - 9:00 PM), haz tu pedido por WhatsApp para agilizar tu atención.
@@ -603,7 +603,7 @@
                   <span class="text-emerald-600">✓</span> Empaque térmico hermético para llevar (+S/. 1.00).
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="text-emerald-600">✓</span> Aceptamos Yape, Plin y Efectivo en caja (Titular: Edwin David T.).
+                  <span class="text-emerald-600">✓</span> Aceptamos Yape (Yenifer Gómez), Plin (Edwin David Torres) y Efectivo.
                 </li>
                 <li class="flex items-center gap-2">
                   <span class="text-emerald-600">✓</span> Wi-Fi de alta velocidad para clientes.
@@ -676,7 +676,7 @@
                   <span class="faq-arrow text-amber">▼</span>
                 </div>
                 <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
-                  Todas nuestras transferencias por Yape y Plin se realizan al número <strong>+51 900 390 458</strong> a nombre del titular <strong>Edwin David T.</strong>.
+                  Contamos con dos cuentas oficiales: <strong>Yape al 917 121 404</strong> (Titular: <strong>Yenifer Gómez</strong>) y <strong>Plin al 916 153 738</strong> (Titular: <strong>Edwin David Torres</strong>).
                 </div>
               </div>
 
@@ -713,7 +713,7 @@
                   <span class="faq-arrow text-amber">▼</span>
                 </div>
                 <div class="faq-answer text-xs text-slate-500 pt-2 border-t border-slate-200 dark-text-slate-300 mt-2">
-                  Atendemos de <strong>Lunes a Domingo de 11:00 AM a 10:00 PM</strong> en horario corrido.
+                  Atendemos de <strong>Lunes a Domingo de 12:30 AM a 11:00 PM</strong> en horario corrido.
                 </div>
               </div>
 
@@ -819,13 +819,13 @@
             </div>
 
             <div id="dt-qr-container" class="qr-box p-3 rounded-2xl text-center space-y-1-5">
-              <p class="text-micro font-semibold text-purple-200 m-0">Yapea o Plinea al número oficial:</p>
+              <p id="dt-qr-subtitle" class="text-micro font-semibold text-purple-200 m-0">Yapea al número oficial:</p>
               <div class="qr-code-wrap">
                 <div class="text-3xl">📱</div>
-                <span class="text-micro font-black tracking-wider text-slate-900">900 390 458</span>
+                <span id="dt-qr-number" class="text-micro font-black tracking-wider text-slate-900">917 121 404</span>
               </div>
-              <p class="text-micro text-purple-200 m-0 font-bold">Titular: Edwin David T.</p>
-              <button type="button" class="btn-copy-yape btn-copy-yape-trigger cursor-pointer">📋 Copiar 900390458</button>
+              <p id="dt-qr-holder" class="text-micro text-purple-200 m-0 font-bold">Titular: Yenifer Gómez</p>
+              <button type="button" id="dt-qr-copy-btn" class="btn-copy-yape btn-copy-yape-trigger cursor-pointer">📋 Copiar Yape (917121404)</button>
             </div>
           </div>
 
@@ -921,7 +921,7 @@
               <span class="contact-icon">⏰</span>
               <div>
                 <strong>Horario de Atención:</strong>
-                <p>Lunes a Domingo: 11:00 AM - 10:00 PM</p>
+                <p>Lunes a Domingo: 12:30 AM - 11:00 PM</p>
               </div>
             </div>
             <div class="contact-item">
@@ -1073,13 +1073,13 @@
           </div>
 
           <div id="mb-qr-container" class="qr-box p-3-5 rounded-2xl text-center space-y-2">
-            <p class="text-xs text-purple-200 font-semibold m-0">Escanea el QR o yapea al número oficial:</p>
+            <p id="mb-qr-subtitle" class="text-xs text-purple-200 font-semibold m-0">Yapea al número oficial:</p>
             <div class="qr-code-wrap">
               <div class="text-4xl">📱</div>
-              <span class="text-micro font-black tracking-wider text-slate-900">900 390 458</span>
+              <span id="mb-qr-number" class="text-micro font-black tracking-wider text-slate-900">917 121 404</span>
             </div>
-            <p class="text-micro text-purple-200 m-0 font-bold">Titular: Edwin David T.</p>
-            <button type="button" class="btn-copy-yape btn-copy-yape-trigger cursor-pointer">📋 Copiar Número Yape (900390458)</button>
+            <p id="mb-qr-holder" class="text-micro text-purple-200 m-0 font-bold">Titular: Yenifer Gómez</p>
+            <button type="button" id="mb-qr-copy-btn" class="btn-copy-yape btn-copy-yape-trigger cursor-pointer">📋 Copiar Yape (917121404)</button>
           </div>
         </div>
 
